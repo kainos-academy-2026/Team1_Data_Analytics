@@ -1,0 +1,576 @@
+{
+  "datasets": [
+    {
+      "name": "07eb28fc",
+      "displayName": "Monthly Revenue",
+      "catalog": "students_data",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT d.year, d.month_name, d.month,\n       SUM(f.fare_amount) AS total_revenue,\n       COUNT(f.trip_key) AS total_trips\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_start_date_key = d.date_key\nGROUP BY d.year, d.month_name, d.month\nORDER BY d.year, d.month",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "93979f04",
+      "displayName": "Top 15 Zones by Revenue",
+      "catalog": "students_data",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT z.zone_code AS pickup_zone,\n       COUNT(f.trip_key) AS trips,\n       SUM(f.fare_amount) AS revenue\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_zone z ON f.pickup_zone_key = z.zone_key\nGROUP BY z.zone_code\nORDER BY revenue DESC\nLIMIT 15",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "3cc13a0d",
+      "displayName": "Average Wait Time by Day",
+      "catalog": "students_data",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT d.day_name,\n       ROUND(AVG(f.expected_vs_actual_pickup_minutes_difference), 2) AS avg_wait_min,\n       ROUND(AVG(f.trip_duration_minutes), 2) AS avg_trip_duration\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_start_date_key = d.date_key\nWHERE f.expected_vs_actual_pickup_minutes_difference IS NOT NULL\nGROUP BY d.day_name",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "93c098af",
+      "displayName": "Revenue by Payment type & Zone",
+      "catalog": "students_data",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT z.zone_code AS zone,\n       f.payment_type,\n       SUM(f.fare_amount) AS revenue\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_zone z ON f.pickup_zone_key = z.zone_key\nGROUP BY z.zone_code, f.payment_type\nORDER BY revenue DESC",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "5129ff9d",
+      "displayName": "Taxi Analytics",
+      "layout": [
+        {
+          "widget": {
+            "name": "monthly_revenue",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "07eb28fc",
+                  "fields": [
+                    {
+                      "name": "month_name",
+                      "expression": "`month_name`"
+                    },
+                    {
+                      "name": "sum(total_revenue)",
+                      "expression": "SUM(`total_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Monthly Revenue Trend",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "month_name",
+                  "displayName": "Month",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_revenue)",
+                  "displayName": "Total Revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "top_zones",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "93979f04",
+                  "fields": [
+                    {
+                      "name": "pickup_zone",
+                      "expression": "`pickup_zone`"
+                    },
+                    {
+                      "name": "sum(revenue)",
+                      "expression": "SUM(`revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Top 15 Zones by Revenue",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "pickup_zone",
+                  "displayName": "pickup_zone",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(revenue)",
+                  "displayName": "revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "pickup_zone",
+                  "displayName": "pickup_zone",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 4,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "wait_time",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "3cc13a0d",
+                  "fields": [
+                    {
+                      "name": "day_name",
+                      "expression": "`day_name`"
+                    },
+                    {
+                      "name": "avg(avg_wait_min)",
+                      "expression": "AVG(`avg_wait_min`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Avg Wait Time by Day of Week",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "day_name",
+                  "displayName": "day_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(avg_wait_min)",
+                  "displayName": "avg_wait_min",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "day_name",
+                  "displayName": "day_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "payment_zone",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "93c098af",
+                  "fields": [
+                    {
+                      "name": "payment_type",
+                      "expression": "`payment_type`"
+                    },
+                    {
+                      "name": "zone",
+                      "expression": "`zone`"
+                    },
+                    {
+                      "name": "sum(revenue)",
+                      "expression": "SUM(`revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Revenue by Payment Type & Zone",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "zone",
+                  "displayName": "zone",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(revenue)",
+                  "displayName": "revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "payment_type",
+                  "displayName": "payment_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 9,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "header",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# 🚕 Taxi Analytics\n",
+                "\n",
+                "**Gold Star Schema Dashboard** - Revenue, Zone Performance & Service Quality KPIs"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_zone",
+            "queries": [
+              {
+                "name": "dashboards/01f19bb5ba3a13f1924b48a35c136ea7/datasets/01f19bb680c711c6877c23404fbd150b_pickup_zone",
+                "query": {
+                  "datasetName": "93979f04",
+                  "fields": [
+                    {
+                      "name": "pickup_zone",
+                      "expression": "`pickup_zone`"
+                    },
+                    {
+                      "name": "pickup_zone_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Filter: Pickup Zone",
+                "showTitle": true
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "pickup_zone",
+                    "queryName": "dashboards/01f19bb5ba3a13f1924b48a35c136ea7/datasets/01f19bb680c711c6877c23404fbd150b_pickup_zone"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_payment",
+            "queries": [
+              {
+                "name": "dashboards/01f19bb5ba3a13f1924b48a35c136ea7/datasets/01f19bb69ce0138e8c7ddf46a485bc69_payment_type",
+                "query": {
+                  "datasetName": "93c098af",
+                  "fields": [
+                    {
+                      "name": "payment_type",
+                      "expression": "`payment_type`"
+                    },
+                    {
+                      "name": "payment_type_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Filter: Payment Type",
+                "showTitle": true
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "payment_type",
+                    "queryName": "dashboards/01f19bb5ba3a13f1924b48a35c136ea7/datasets/01f19bb69ce0138e8c7ddf46a485bc69_payment_type"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_day",
+            "queries": [
+              {
+                "name": "dashboards/01f19bb5ba3a13f1924b48a35c136ea7/datasets/01f19bb68ed81ac392eb0fd0c9afd0b5_day_name",
+                "query": {
+                  "datasetName": "3cc13a0d",
+                  "fields": [
+                    {
+                      "name": "day_name",
+                      "expression": "`day_name`"
+                    },
+                    {
+                      "name": "day_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Filter: Day of Week",
+                "showTitle": true
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "day_name",
+                    "queryName": "dashboards/01f19bb5ba3a13f1924b48a35c136ea7/datasets/01f19bb68ed81ac392eb0fd0c9afd0b5_day_name"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 2,
+            "width": 4,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "canvasBackgroundColor": {
+        "light": "#1A1A2E",
+        "dark": "#1A1A2E"
+      },
+      "widgetBackgroundColor": {
+        "light": "#16213E",
+        "dark": "#16213E"
+      },
+      "widgetBorderColor": {
+        "light": "#0F3460",
+        "dark": "#0F3460"
+      },
+      "selectionColor": {
+        "light": "#F5A623",
+        "dark": "#FFC947"
+      },
+      "visualizationColors": [
+        "#F5A623",
+        "#4A90D9",
+        "#7B68EE",
+        "#50C878",
+        "#FF6B6B",
+        "#45B7D1",
+        "#FFC947",
+        "#A855F7"
+      ],
+      "widgetHeaderAlignment": "LEFT",
+      "widgetPadding": 16,
+      "widgetMargin": 8,
+      "widgetCornerRadius": 8,
+      "widgetShadow": 15,
+      "fontSettings": {
+        "base": {
+          "fontFamily": "Inter",
+          "fontColor": {
+            "light": "#DFE6E9",
+            "dark": "#DFE6E9"
+          }
+        },
+        "widgetTitle": {
+          "fontFamily": "Inter",
+          "fontColor": {
+            "light": "#FFFFFF",
+            "dark": "#FFFFFF"
+          },
+          "fontSize": 14,
+          "fontWeight": 600
+        },
+        "fieldTitle": {
+          "fontFamily": "Inter",
+          "fontWeight": 500
+        },
+        "fieldValue": {
+          "fontFamily": "Inter"
+        }
+      },
+      "gridLineColor": {
+        "light": "#2A2A4A",
+        "dark": "#2A2A4A"
+      }
+    },
+    "applyModeEnabled": false
+  }
+}
