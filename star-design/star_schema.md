@@ -2,9 +2,9 @@ erDiagram
 
     FACT_TRIP {
         bigint trip_key PK
-        bigint booking_id
+        string booking_id
 
-        int trip_start_date_key FK
+        int trip_booked_for_date_key FK
         int pickup_zone_key FK
         int destination_zone_key FK
 
@@ -13,21 +13,21 @@ erDiagram
         string booking_source
         string capabilities
 
-        int driver_id
-        int vehicle_id
-        int dispatcher_id
+        string driver_id
+        string vehicle_id
+        string dispatcher_id
 
         int priority_level
 
-        decimal fare_amount
-        decimal distance
+        double fare_amount
+        double distance
 
         timestamp dispatch_timestamp
         timestamp pickup_due_timestamp
 
-        int expected_vs_actual_pickup_minutes_difference
-        int dispatch_to_arrival_minutes
-        int trip_duration_minutes
+        double expected_vs_actual_pickup_minutes_difference
+        double dispatch_to_arrival_minutes
+        double trip_duration_minutes
     }
 
     DIM_DATE {
@@ -55,10 +55,10 @@ erDiagram
 
         string zone_code
 
-        decimal latitude
-        decimal longitude
+        double latitude
+        double longitude
     }
 
-    DIM_DATE ||--o{ FACT_TRIP : trip_start_date
+    DIM_DATE ||--o{ FACT_TRIP : trip_booked_for_date
     DIM_ZONE ||--o{ FACT_TRIP : pickup_zone
     DIM_ZONE ||--o{ FACT_TRIP : destination_zone
