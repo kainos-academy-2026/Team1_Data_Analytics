@@ -107,6 +107,26 @@
           }
         ]
       }
+    },
+    {
+      "name": "trips_by_year_month",
+      "displayName": "Trips by Year and Month",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT d.year,\n       d.month_name,\n       d.month,\n       COUNT(f.trip_key) AS num_trips\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_start_date_key = d.date_key\nWHERE d.year <= 2026\nGROUP BY d.year, d.month_name, d.month\nORDER BY d.year, d.month",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "displayName": "Count"
+          }
+        ]
+      }
     }
   ],
   "pages": [
@@ -482,9 +502,26 @@
             "name": "filter_day",
             "queries": [
               {
-                "name": "dashboards/01f19bb5ba3a13f1924b48a35c136ea7/datasets/01f19bb68ed81ac392eb0fd0c9afd0b5_day_name",
+                "name": "dashboards/01f19c723d551fec94f67a7d09a848f0/datasets/01f19c723d73187b91642018e0172d22_day_name",
                 "query": {
                   "datasetName": "3cc13a0d",
+                  "fields": [
+                    {
+                      "name": "day_name",
+                      "expression": "`day_name`"
+                    },
+                    {
+                      "name": "day_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f19c723d551fec94f67a7d09a848f0/datasets/01f19c723d731897ae400c50d6fb449c_day_name",
+                "query": {
+                  "datasetName": "trips_per_hour_dow",
                   "fields": [
                     {
                       "name": "day_name",
@@ -510,7 +547,11 @@
                 "fields": [
                   {
                     "fieldName": "day_name",
-                    "queryName": "dashboards/01f19bb5ba3a13f1924b48a35c136ea7/datasets/01f19bb68ed81ac392eb0fd0c9afd0b5_day_name"
+                    "queryName": "dashboards/01f19c723d551fec94f67a7d09a848f0/datasets/01f19c723d73187b91642018e0172d22_day_name"
+                  },
+                  {
+                    "fieldName": "day_name",
+                    "queryName": "dashboards/01f19c723d551fec94f67a7d09a848f0/datasets/01f19c723d731897ae400c50d6fb449c_day_name"
                   }
                 ]
               }
@@ -521,86 +562,6 @@
             "y": 2,
             "width": 4,
             "height": 2
-          }
-        },
-        {
-          "widget": {
-            "name": "trips_per_hour_dow",
-            "queries": [
-              {
-                "name": "main_query",
-                "query": {
-                  "datasetName": "trips_per_hour_dow",
-                  "fields": [
-                    {
-                      "name": "sum(num_trips)",
-                      "expression": "SUM(`num_trips`)"
-                    },
-                    {
-                      "name": "hour_of_day",
-                      "expression": "`hour_of_day`"
-                    },
-                    {
-                      "name": "day_name",
-                      "expression": "`day_name`"
-                    }
-                  ],
-                  "disaggregated": false
-                }
-              }
-            ],
-            "spec": {
-              "version": 3,
-              "frame": {
-                "title": "Trips per Hour by Day of Week",
-                "showTitle": true
-              },
-              "widgetType": "heatmap",
-              "encodings": {
-                "x": {
-                  "fieldName": "hour_of_day",
-                  "displayName": "Hour of Day",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                },
-                "y": {
-                  "fieldName": "day_name",
-                  "displayName": "Day of Week",
-                  "scale": {
-                    "type": "categorical",
-                    "sort": {
-                      "by": "custom-order",
-                      "orderedValues": [
-                        "Monday",
-                        "Tuesday",
-                        "Wednesday",
-                        "Thursday",
-                        "Friday",
-                        "Saturday",
-                        "Sunday"
-                      ]
-                    }
-                  }
-                },
-                "color": {
-                  "fieldName": "sum(num_trips)",
-                  "displayName": "Number of Trips",
-                  "scale": {
-                    "type": "quantitative"
-                  }
-                }
-              },
-              "data": {
-                "queryName": "main_query"
-              }
-            }
-          },
-          "position": {
-            "x": 0,
-            "y": 16,
-            "width": 12,
-            "height": 5
           }
         },
         {
@@ -678,7 +639,7 @@
           },
           "position": {
             "x": 0,
-            "y": 21,
+            "y": 26,
             "width": 12,
             "height": 5
           }
@@ -727,6 +688,264 @@
             "y": 14,
             "width": 4,
             "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "ae988ea0",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "trips_per_hour_dow",
+                  "fields": [
+                    {
+                      "name": "avg(num_trips)",
+                      "expression": "AVG(`num_trips`)"
+                    },
+                    {
+                      "name": "hour_of_day",
+                      "expression": "`hour_of_day`"
+                    },
+                    {
+                      "name": "day_name",
+                      "expression": "`day_name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Average Trips per Hour by Day of Week",
+                "showTitle": true,
+                "showDescription": false
+              },
+              "widgetType": "heatmap",
+              "encodings": {
+                "x": {
+                  "fieldName": "hour_of_day",
+                  "displayName": "Hour of Day",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "day_name",
+                  "displayName": "Day of Week",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "custom-order",
+                      "orderedValues": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday"
+                      ]
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "avg(num_trips)",
+                  "displayName": "Number of Trips",
+                  "scale": {
+                    "type": "quantitative",
+                    "colorRamp": {
+                      "mode": "scheme",
+                      "scheme": "blues"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 16,
+            "width": 12,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "4807f62e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "trips_per_hour_dow",
+                  "fields": [
+                    {
+                      "name": "avg(num_trips)",
+                      "expression": "AVG(`num_trips`)"
+                    },
+                    {
+                      "name": "hour_of_day",
+                      "expression": "`hour_of_day`"
+                    },
+                    {
+                      "name": "day_name",
+                      "expression": "`day_name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Average Trips per Hour by Day of Week",
+                "showTitle": true
+              },
+              "widgetType": "heatmap",
+              "encodings": {
+                "x": {
+                  "fieldName": "hour_of_day",
+                  "displayName": "Hour of Day",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "day_name",
+                  "displayName": "Day of Week",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "custom-order",
+                      "orderedValues": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday"
+                      ]
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "avg(num_trips)",
+                  "displayName": "Number of Trips",
+                  "scale": {
+                    "type": "quantitative",
+                    "colorRamp": {
+                      "mode": "scheme",
+                      "scheme": "blues"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 21,
+            "width": 12,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "heatmap_trips_month",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "trips_by_year_month",
+                  "fields": [
+                    {
+                      "name": "avg(num_trips)",
+                      "expression": "AVG(`num_trips`)"
+                    },
+                    {
+                      "name": "month_name",
+                      "expression": "`month_name`"
+                    },
+                    {
+                      "name": "year",
+                      "expression": "`year`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Average Trips per Calendar Month",
+                "showTitle": true
+              },
+              "widgetType": "heatmap",
+              "encodings": {
+                "x": {
+                  "fieldName": "month_name",
+                  "displayName": "Month",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "custom-order",
+                      "orderedValues": [
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December"
+                      ]
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "year",
+                  "displayName": "Year",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "color": {
+                  "fieldName": "avg(num_trips)",
+                  "displayName": "Avg Trips",
+                  "scale": {
+                    "type": "quantitative",
+                    "colorRamp": {
+                      "mode": "scheme",
+                      "scheme": "blues"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 31,
+            "width": 12,
+            "height": 5
           }
         }
       ],
