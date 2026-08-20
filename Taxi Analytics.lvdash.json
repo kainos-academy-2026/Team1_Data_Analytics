@@ -113,7 +113,7 @@
       "displayName": "Trips by Year and Month",
       "config": {
         "version": "1.1",
-        "source": "SELECT d.year,\n       d.month_name,\n       d.month,\n       COUNT(f.trip_key) AS num_trips\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_start_date_key = d.date_key\nWHERE d.year <= 2026\nGROUP BY d.year, d.month_name, d.month\nORDER BY d.year, d.month",
+        "source": "SELECT d.year,\n       d.month_name,\n       d.month,\n       COUNT(f.trip_key) AS num_trips\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_start_date_key = d.date_key\nGROUP BY d.year, d.month_name, d.month\nORDER BY d.year, d.month",
         "dimensions": [
           {
             "expr": "source.*"
@@ -869,16 +869,12 @@
                   "datasetName": "trips_by_year_month",
                   "fields": [
                     {
-                      "name": "avg(num_trips)",
-                      "expression": "AVG(`num_trips`)"
-                    },
-                    {
                       "name": "month_name",
                       "expression": "`month_name`"
                     },
                     {
-                      "name": "year",
-                      "expression": "`year`"
+                      "name": "avg(num_trips)",
+                      "expression": "AVG(`num_trips`)"
                     }
                   ],
                   "disaggregated": false
@@ -891,7 +887,7 @@
                 "title": "Average Trips per Calendar Month",
                 "showTitle": true
               },
-              "widgetType": "heatmap",
+              "widgetType": "bar",
               "encodings": {
                 "x": {
                   "fieldName": "month_name",
@@ -918,20 +914,35 @@
                   }
                 },
                 "y": {
-                  "fieldName": "year",
-                  "displayName": "Year",
-                  "scale": {
-                    "type": "categorical"
-                  }
-                },
-                "color": {
                   "fieldName": "avg(num_trips)",
                   "displayName": "Avg Trips",
                   "scale": {
-                    "type": "quantitative",
-                    "colorRamp": {
-                      "mode": "scheme",
-                      "scheme": "blues"
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "month_name",
+                  "legend": {
+                    "hide": true
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "custom-order",
+                      "orderedValues": [
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December"
+                      ]
                     }
                   }
                 }
