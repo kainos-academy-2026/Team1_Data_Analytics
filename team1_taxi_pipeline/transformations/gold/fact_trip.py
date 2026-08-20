@@ -73,6 +73,7 @@ def fact_trip():
             F.col("vehicle").alias("vehicle_id"),
             F.col("priority").alias("priority_level"),
             "capabilities",
+            F.col("booked_by").alias("dispatcher_id"),
             F.col("price").alias("fare_amount"),
             F.col("time_dispatched_ts").alias("dispatch_timestamp"),
             F.col("pickup_due_ts").alias("pickup_due_timestamp"),
