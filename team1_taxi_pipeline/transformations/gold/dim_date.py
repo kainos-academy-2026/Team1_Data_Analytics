@@ -4,18 +4,19 @@ from pyspark.sql import functions as F
 
 @dp.materialized_view(
     name="dim_date",
-    comment="Date dimension table derived from silver taxi trip dates"
+    comment="Date dimension table derived from silver taxi trip dates, enriched with weather"
 )
 def dim_date():
     silver_df = spark.read.table("silver_taxi")
-
+    weather_df = spark.read.table("weather_daily")
+    
     date_df = (
         silver_df
         .select(F.to_date("pickup_due_ts").alias("trip_date"))
         .distinct()
         .filter(F.col("trip_date").isNotNull())
     )
-
+    
     return (
         date_df
         .withColumn("date_key", F.date_format("trip_date", "yyyyMMdd").cast("int"))
@@ -28,5 +29,10 @@ def dim_date():
         .withColumn("quarter", F.quarter("trip_date"))
         .withColumn("year", F.year("trip_date"))
         .withColumn("weekend_flag", F.dayofweek("trip_date").isin(1, 7))
-        .drop("trip_date")
+        .join(
+            weather_df,
+            F.col("trip_date") == F.col("date"),
+            "left"
+        )
+        .drop("trip_date", "date")
     )

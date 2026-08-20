@@ -47,7 +47,13 @@ def silver_taxi():
             F.when(F.trim(F.col(c)) == "", F.lit(None)).otherwise(F.col(c))
         )
 
-    # Step 3: Remove rows where pickup date is in the future (data quality issue)
+    # Step 3: Change trips with a capability of 'Z' to have a payment type of 'card'
+    silver_clean = silver_clean.withColumn(
+        "payment_type",
+        F.when(F.col("capabilities") == "Z", F.lit("card")).otherwise(F.col("payment_type"))
+    )
+
+    # Step 4: Remove rows where pickup date is in the future (data quality issue)
     silver_clean = silver_clean.filter(
         F.col("pickup_due_ts").isNull() | (F.col("pickup_due_ts") <= F.current_timestamp())
     )
@@ -55,7 +61,7 @@ def silver_taxi():
     print(f"Rows removed with future pickup dates: {future_removed}")
 
 
-    # Step 4: Deduplicate by booking_id, keeping the latest record
+    # Step 5: Deduplicate by booking_id, keeping the latest record
     w = Window.partitionBy("booking_id").orderBy(
         F.col("completed_ts").desc_nulls_last(),
         F.col("time_picked_up_ts").desc_nulls_last(),
@@ -68,7 +74,7 @@ def silver_taxi():
         .drop("rn")
     )
 
-    # Step 5: Standardise text values with initcap
+    # Step 6: Standardise text values with initcap
     silver_conformed = (
         silver_dedup
         .withColumn("payment_type", F.initcap(F.trim(F.col("payment_type"))))
