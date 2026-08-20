@@ -6,17 +6,33 @@
       "catalog": "students_data",
       "config": {
         "version": "1.1",
-        "source": "SELECT d.year, d.month_name, d.month,\n       SUM(f.fare_amount) AS total_revenue,\n       COUNT(f.trip_key) AS total_trips\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_start_date_key = d.date_key\nGROUP BY d.year, d.month_name, d.month\nORDER BY d.year, d.month",
+        "source": "SELECT d.year, d.month_name, d.month,\n       SUM(f.fare_amount) AS total_revenue,\n       COUNT(f.trip_key) AS total_trips\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_booked_for_date_key = d.date_key\nGROUP BY d.year, d.month_name, d.month\nORDER BY d.year, d.month",
         "dimensions": [
           {
-            "expr": "source.*"
+            "name": "year",
+            "expr": "year"
+          },
+          {
+            "name": "month_name",
+            "expr": "month_name"
+          },
+          {
+            "name": "month",
+            "expr": "month"
+          },
+          {
+            "name": "total_revenue",
+            "expr": "total_revenue"
+          },
+          {
+            "name": "total_trips",
+            "expr": "total_trips"
           }
         ],
         "measures": [
           {
             "name": "count",
             "expr": "COUNT(*)",
-            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
             "displayName": "Count"
           }
         ]
@@ -50,17 +66,25 @@
       "catalog": "students_data",
       "config": {
         "version": "1.1",
-        "source": "SELECT d.day_name,\n       ROUND(AVG(f.expected_vs_actual_pickup_minutes_difference), 2) AS avg_wait_min,\n       ROUND(AVG(f.trip_duration_minutes), 2) AS avg_trip_duration\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_start_date_key = d.date_key\nWHERE f.expected_vs_actual_pickup_minutes_difference IS NOT NULL\nGROUP BY d.day_name",
+        "source": "SELECT d.day_name,\n       ROUND(AVG(f.expected_vs_actual_pickup_minutes_difference), 2) AS avg_wait_min,\n       ROUND(AVG(f.trip_duration_minutes), 2) AS avg_trip_duration\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_booked_for_date_key = d.date_key\nWHERE f.expected_vs_actual_pickup_minutes_difference IS NOT NULL\nGROUP BY d.day_name",
         "dimensions": [
           {
-            "expr": "source.*"
+            "name": "day_name",
+            "expr": "day_name"
+          },
+          {
+            "name": "avg_wait_min",
+            "expr": "avg_wait_min"
+          },
+          {
+            "name": "avg_trip_duration",
+            "expr": "avg_trip_duration"
           }
         ],
         "measures": [
           {
             "name": "count",
             "expr": "COUNT(*)",
-            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
             "displayName": "Count"
           }
         ]
@@ -93,10 +117,19 @@
       "displayName": "Trips per Hour by Day of Week",
       "config": {
         "version": "1.1",
-        "source": "SELECT d.day_name,\n       HOUR(f.pickup_due_timestamp) AS hour_of_day,\n       COUNT(f.trip_key) AS num_trips\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_start_date_key = d.date_key\nGROUP BY d.day_name, HOUR(f.pickup_due_timestamp)\nORDER BY hour_of_day",
+        "source": "SELECT d.day_name,\n       HOUR(f.pickup_due_timestamp) AS hour_of_day,\n       COUNT(f.trip_key) AS num_trips\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_booked_for_date_key = d.date_key\nGROUP BY d.day_name, HOUR(f.pickup_due_timestamp)\nORDER BY hour_of_day",
         "dimensions": [
           {
-            "expr": "source.*"
+            "name": "day_name",
+            "expr": "day_name"
+          },
+          {
+            "name": "hour_of_day",
+            "expr": "hour_of_day"
+          },
+          {
+            "name": "num_trips",
+            "expr": "num_trips"
           }
         ],
         "measures": [
@@ -113,10 +146,68 @@
       "displayName": "Trips by Year and Month",
       "config": {
         "version": "1.1",
-        "source": "SELECT d.year,\n       d.month_name,\n       d.month,\n       COUNT(f.trip_key) AS num_trips\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_start_date_key = d.date_key\nGROUP BY d.year, d.month_name, d.month\nORDER BY d.year, d.month",
+        "source": "SELECT d.year,\n       d.month_name,\n       d.month,\n       COUNT(f.trip_key) AS num_trips\nFROM students_data.team1_taxi.fact_trip f\nJOIN students_data.team1_taxi.dim_date d ON f.trip_booked_for_date_key = d.date_key\nWHERE d.year <= 2026\nGROUP BY d.year, d.month_name, d.month\nORDER BY d.year, d.month",
         "dimensions": [
           {
-            "expr": "source.*"
+            "name": "year",
+            "expr": "year"
+          },
+          {
+            "name": "month_name",
+            "expr": "month_name"
+          },
+          {
+            "name": "month",
+            "expr": "month"
+          },
+          {
+            "name": "num_trips",
+            "expr": "num_trips"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "card_vs_cash",
+      "displayName": "Card vs Cash Payment Analysis",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT f.payment_type,\n       COUNT(f.trip_key) AS num_trips,\n       ROUND(SUM(f.fare_amount), 2) AS total_revenue,\n       ROUND(AVG(f.fare_amount), 2) AS avg_fare,\n       ROUND(AVG(f.distance), 2) AS avg_distance,\n       ROUND(AVG(f.trip_duration_minutes), 2) AS avg_duration_min,\n       ROUND(SUM(f.fare_amount) / COUNT(f.trip_key), 2) AS revenue_per_trip\nFROM students_data.team1_taxi.fact_trip f\nGROUP BY f.payment_type",
+        "dimensions": [
+          {
+            "name": "payment_type",
+            "expr": "payment_type"
+          },
+          {
+            "name": "num_trips",
+            "expr": "num_trips"
+          },
+          {
+            "name": "total_revenue",
+            "expr": "total_revenue"
+          },
+          {
+            "name": "avg_fare",
+            "expr": "avg_fare"
+          },
+          {
+            "name": "avg_distance",
+            "expr": "avg_distance"
+          },
+          {
+            "name": "avg_duration_min",
+            "expr": "avg_duration_min"
+          },
+          {
+            "name": "revenue_per_trip",
+            "expr": "revenue_per_trip"
           }
         ],
         "measures": [
@@ -955,6 +1046,236 @@
           "position": {
             "x": 0,
             "y": 31,
+            "width": 12,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "card_header",
+            "multilineTextboxSpec": {
+              "lines": [
+                "## Is It Worth Requiring Card Payments?"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 36,
+            "width": 12,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "card_revenue_bar",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "card_vs_cash",
+                  "fields": [
+                    {
+                      "name": "payment_type",
+                      "expression": "`payment_type`"
+                    },
+                    {
+                      "name": "sum(total_revenue)",
+                      "expression": "SUM(`total_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Total Revenue by Payment Type",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "payment_type",
+                  "displayName": "payment_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_revenue)",
+                  "displayName": "total_revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "payment_type",
+                  "displayName": "payment_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 37,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "card_trips_bar",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "card_vs_cash",
+                  "fields": [
+                    {
+                      "name": "payment_type",
+                      "expression": "`payment_type`"
+                    },
+                    {
+                      "name": "sum(num_trips)",
+                      "expression": "SUM(`num_trips`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Number of Trips by Payment Type",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "payment_type",
+                  "displayName": "payment_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(num_trips)",
+                  "displayName": "num_trips",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "payment_type",
+                  "displayName": "payment_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 37,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "card_table",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "card_vs_cash",
+                  "fields": [
+                    {
+                      "name": "payment_type",
+                      "expression": "`payment_type`"
+                    },
+                    {
+                      "name": "num_trips",
+                      "expression": "`num_trips`"
+                    },
+                    {
+                      "name": "total_revenue",
+                      "expression": "`total_revenue`"
+                    },
+                    {
+                      "name": "avg_fare",
+                      "expression": "`avg_fare`"
+                    },
+                    {
+                      "name": "avg_distance",
+                      "expression": "`avg_distance`"
+                    },
+                    {
+                      "name": "avg_duration_min",
+                      "expression": "`avg_duration_min`"
+                    },
+                    {
+                      "name": "revenue_per_trip",
+                      "expression": "`revenue_per_trip`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Card vs Cash: Full Comparison",
+                "showTitle": true
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "payment_type"
+                  },
+                  {
+                    "fieldName": "num_trips"
+                  },
+                  {
+                    "fieldName": "total_revenue"
+                  },
+                  {
+                    "fieldName": "avg_fare"
+                  },
+                  {
+                    "fieldName": "avg_distance"
+                  },
+                  {
+                    "fieldName": "avg_duration_min"
+                  },
+                  {
+                    "fieldName": "revenue_per_trip"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 43,
             "width": 12,
             "height": 5
           }
