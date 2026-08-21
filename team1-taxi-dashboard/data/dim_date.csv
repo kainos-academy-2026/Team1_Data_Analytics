@@ -1,0 +1,265 @@
+date_key,full_date,day,day_name,week,month,month_name,quarter,year,weekend_flag,avg_temp_c,total_precip_mm,avg_wind_speed_kmph,avg_humidity,avg_visibility_km,avg_cloud_cover,avg_pressure_mb,weather_desc
+20260730,2026-07-30,30,Thursday,31,7,July,3,2026,False,13.0,1.3,12.0,74.0,9.0,74.0,1016.0,Patchy rain possible
+20260311,2026-03-11,11,Wednesday,11,3,March,1,2026,False,7.0,2.2,31.0,77.0,9.0,81.0,1000.0,Light rain shower
+20260317,2026-03-17,17,Tuesday,12,3,March,1,2026,False,9.0,2.3,20.0,87.0,7.0,99.0,1002.0,Light rain
+20250907,2025-09-07,7,Sunday,36,9,September,3,2025,True,14.0,5.2,19.0,88.0,8.0,84.0,1000.0,Moderate rain
+20260104,2026-01-04,4,Sunday,1,1,January,1,2026,True,2.0,2.6,12.0,78.0,9.0,93.0,1018.0,Moderate or heavy snow showers
+20260728,2026-07-28,28,Tuesday,31,7,July,3,2026,False,17.0,7.9,17.0,95.0,6.0,95.0,1012.0,Moderate or heavy rain shower
+20250923,2025-09-23,23,Tuesday,39,9,September,3,2025,False,8.0,0.0,7.0,80.0,9.0,8.0,1030.0,Sunny
+20251128,2025-11-28,28,Friday,48,11,November,4,2025,False,6.0,2.0,29.0,79.0,8.0,87.0,998.0,Light rain shower
+20260114,2026-01-14,14,Wednesday,3,1,January,1,2026,False,2.0,5.2,14.0,93.0,7.0,84.0,1003.0,Light rain
+20250825,2025-08-25,25,Monday,35,8,August,3,2025,False,17.0,0.8,17.0,78.0,8.0,45.0,1006.0,Light drizzle
+20260324,2026-03-24,24,Tuesday,13,3,March,1,2026,False,6.0,11.5,25.0,86.0,9.0,91.0,1005.0,Light rain shower
+20251016,2025-10-16,16,Thursday,42,10,October,4,2025,False,8.0,0.0,3.0,90.0,5.0,30.0,1028.0,Fog
+20250819,2025-08-19,19,Tuesday,34,8,August,3,2025,False,17.0,0.0,8.0,80.0,8.0,51.0,1020.0,Mist
+20260323,2026-03-23,23,Monday,13,3,March,1,2026,False,6.0,0.0,16.0,77.0,10.0,91.0,1016.0,Patchy rain possible
+20260721,2026-07-21,21,Tuesday,30,7,July,3,2026,False,14.0,0.4,14.0,80.0,9.0,80.0,1032.0,Patchy rain possible
+20251224,2025-12-24,24,Wednesday,52,12,December,4,2025,False,4.0,0.0,5.0,94.0,4.0,36.0,1037.0,Mist
+20260812,2026-08-12,12,Wednesday,33,8,August,3,2026,False,19.0,0.0,11.0,76.0,10.0,59.0,1018.0,Overcast
+20260727,2026-07-27,27,Monday,31,7,July,3,2026,False,15.0,3.6,11.0,88.0,8.0,97.0,1014.0,Patchy rain possible
+20250912,2025-09-12,12,Friday,37,9,September,3,2025,False,11.0,11.5,17.0,90.0,8.0,83.0,1000.0,Light rain shower
+20251001,2025-10-01,1,Wednesday,40,10,October,4,2025,False,15.0,6.9,19.0,90.0,9.0,100.0,1017.0,Light rain
+20251121,2025-11-21,21,Friday,47,11,November,4,2025,False,2.0,3.7,11.0,84.0,9.0,80.0,1022.0,Light drizzle
+20260118,2026-01-18,18,Sunday,3,1,January,1,2026,True,3.0,0.7,11.0,93.0,7.0,63.0,1012.0,Patchy rain possible
+20251015,2025-10-15,15,Wednesday,42,10,October,4,2025,False,10.0,0.0,4.0,91.0,4.0,57.0,1031.0,Fog
+20250919,2025-09-19,19,Friday,38,9,September,3,2025,False,12.0,0.3,10.0,87.0,9.0,81.0,1011.0,Patchy rain possible
+20251123,2025-11-23,23,Sunday,47,11,November,4,2025,True,6.0,14.7,19.0,89.0,8.0,94.0,990.0,Moderate or heavy rain with thunder
+20260802,2026-08-02,2,Sunday,31,8,August,3,2026,True,13.0,1.7,4.0,85.0,5.0,72.0,1018.0,Moderate rain at times
+20260207,2026-02-07,7,Saturday,6,2,February,1,2026,True,5.0,6.2,11.0,97.0,6.0,100.0,993.0,Light rain
+20251207,2025-12-07,7,Sunday,49,12,December,4,2025,True,8.0,24.1,18.0,91.0,8.0,80.0,991.0,Moderate rain
+20250821,2025-08-21,21,Thursday,34,8,August,3,2025,False,14.0,0.0,4.0,81.0,7.0,45.0,1021.0,Patchy rain possible
+20251005,2025-10-05,5,Sunday,40,10,October,4,2025,True,11.0,1.5,25.0,85.0,10.0,96.0,1015.0,Patchy rain possible
+20260116,2026-01-16,16,Friday,3,1,January,1,2026,False,1.0,0.0,6.0,93.0,5.0,60.0,999.0,Mist
+20260107,2026-01-07,7,Wednesday,2,1,January,1,2026,False,2.0,2.7,9.0,90.0,8.0,93.0,1006.0,Light snow
+20251226,2025-12-26,26,Friday,52,12,December,4,2025,False,1.0,0.0,5.0,93.0,9.0,12.0,1037.0,Mist
+20260319,2026-03-19,19,Thursday,12,3,March,1,2026,False,8.0,0.0,6.0,85.0,7.0,24.0,1028.0,Mist
+20260403,2026-04-03,3,Friday,14,4,April,2,2026,False,6.0,4.9,19.0,89.0,8.0,89.0,1004.0,Heavy rain at times
+20250924,2025-09-24,24,Wednesday,39,9,September,3,2025,False,9.0,0.0,8.0,84.0,7.0,32.0,1028.0,Mist
+20260321,2026-03-21,21,Saturday,12,3,March,1,2026,True,7.0,0.0,7.0,76.0,10.0,11.0,1019.0,Sunny
+20251010,2025-10-10,10,Friday,41,10,October,4,2025,False,11.0,0.0,8.0,84.0,9.0,63.0,1034.0,Patchy rain possible
+20251228,2025-12-28,28,Sunday,52,12,December,4,2025,True,0.0,0.0,4.0,94.0,4.0,24.0,1037.0,Mist
+20251115,2025-11-15,15,Saturday,46,11,November,4,2025,True,6.0,0.9,22.0,86.0,10.0,94.0,1016.0,Patchy rain possible
+20251113,2025-11-13,13,Thursday,46,11,November,4,2025,False,6.0,22.2,19.0,92.0,8.0,93.0,1006.0,Light rain shower
+20251002,2025-10-02,2,Thursday,40,10,October,4,2025,False,13.0,20.8,19.0,94.0,9.0,100.0,1009.0,Moderate rain
+20251021,2025-10-21,21,Tuesday,43,10,October,4,2025,False,10.0,3.7,17.0,93.0,7.0,91.0,989.0,Light rain shower
+20260111,2026-01-11,11,Sunday,2,1,January,1,2026,True,9.0,9.1,28.0,91.0,7.0,100.0,992.0,Light rain
+20251009,2025-10-09,9,Thursday,41,10,October,4,2025,False,12.0,0.1,16.0,89.0,10.0,98.0,1028.0,Patchy rain possible
+20251122,2025-11-22,22,Saturday,47,11,November,4,2025,True,4.0,5.0,9.0,95.0,4.0,75.0,1010.0,Fog
+20250906,2025-09-06,6,Saturday,36,9,September,3,2025,True,14.0,0.1,16.0,81.0,8.0,78.0,1012.0,Patchy rain possible
+20251007,2025-10-07,7,Tuesday,41,10,October,4,2025,False,11.0,1.7,13.0,86.0,9.0,84.0,1019.0,Light drizzle
+20251013,2025-10-13,13,Monday,42,10,October,4,2025,False,11.0,0.0,3.0,85.0,8.0,22.0,1030.0,Partly cloudy
+20260228,2026-02-28,28,Saturday,9,2,February,1,2026,True,3.0,1.0,12.0,82.0,9.0,66.0,1015.0,Light drizzle
+20250918,2025-09-18,18,Thursday,38,9,September,3,2025,False,13.0,1.7,11.0,89.0,6.0,86.0,1008.0,Light drizzle
+20260121,2026-01-21,21,Wednesday,4,1,January,1,2026,False,6.0,3.4,17.0,87.0,9.0,84.0,986.0,Patchy rain possible
+20251031,2025-10-31,31,Friday,44,10,October,4,2025,False,10.0,5.2,23.0,85.0,9.0,71.0,985.0,Moderate rain
+20251222,2025-12-22,22,Monday,52,12,December,4,2025,False,7.0,2.3,5.0,98.0,1.0,98.0,1010.0,Light drizzle
+20260124,2026-01-24,24,Saturday,4,1,January,1,2026,True,6.0,3.4,32.0,87.0,9.0,96.0,986.0,Light drizzle
+20251104,2025-11-04,4,Tuesday,45,11,November,4,2025,False,11.0,0.2,13.0,88.0,7.0,80.0,998.0,Patchy rain possible
+20260804,2026-08-04,4,Tuesday,32,8,August,3,2026,False,15.0,14.6,11.0,93.0,8.0,95.0,1004.0,Moderate rain at times
+20260331,2026-03-31,31,Tuesday,14,3,March,1,2026,False,11.0,0.2,15.0,82.0,10.0,82.0,1027.0,Patchy rain possible
+20260214,2026-02-14,14,Saturday,7,2,February,1,2026,True,1.0,6.6,15.0,83.0,8.0,65.0,1013.0,Heavy snow
+20260218,2026-02-18,18,Wednesday,8,2,February,1,2026,False,3.0,0.0,31.0,68.0,10.0,86.0,1003.0,Overcast
+20260213,2026-02-13,13,Friday,7,2,February,1,2026,False,1.0,3.6,14.0,89.0,8.0,79.0,1001.0,Moderate or heavy snow showers
+20260806,2026-08-06,6,Thursday,32,8,August,3,2026,False,13.0,1.8,11.0,82.0,8.0,73.0,1021.0,Patchy rain possible
+20260105,2026-01-05,5,Monday,2,1,January,1,2026,False,0.0,1.6,9.0,76.0,9.0,82.0,1020.0,Moderate or heavy snow showers
+20251206,2025-12-06,6,Saturday,49,12,December,4,2025,True,8.0,7.8,10.0,94.0,7.0,96.0,985.0,Light rain
+20260222,2026-02-22,22,Sunday,8,2,February,1,2026,True,7.0,2.3,23.0,86.0,9.0,87.0,1007.0,Light rain shower
+20260814,2026-08-14,14,Friday,33,8,August,3,2026,False,16.0,1.3,12.0,85.0,7.0,84.0,1020.0,Patchy rain possible
+20251202,2025-12-02,2,Tuesday,49,12,December,4,2025,False,5.0,0.3,22.0,85.0,10.0,87.0,992.0,Patchy rain possible
+20260724,2026-07-24,24,Friday,30,7,July,3,2026,False,16.0,0.5,16.0,75.0,8.0,50.0,1018.0,Patchy rain possible
+20251103,2025-11-03,3,Monday,45,11,November,4,2025,False,13.0,14.1,21.0,91.0,7.0,97.0,995.0,Light rain shower
+20260402,2026-04-02,2,Thursday,14,4,April,2,2026,False,4.0,2.8,16.0,89.0,10.0,79.0,1017.0,Moderate rain at times
+20251025,2025-10-25,25,Saturday,43,10,October,4,2025,True,7.0,2.7,22.0,74.0,10.0,89.0,1011.0,Light rain shower
+20250914,2025-09-14,14,Sunday,37,9,September,3,2025,True,10.0,11.4,16.0,95.0,5.0,86.0,997.0,Light rain shower
+20260106,2026-01-06,6,Tuesday,2,1,January,1,2026,False,3.0,2.5,16.0,90.0,7.0,88.0,1013.0,Light rain shower
+20251028,2025-10-28,28,Tuesday,44,10,October,4,2025,False,9.0,0.8,25.0,81.0,9.0,85.0,1001.0,Light rain shower
+20251221,2025-12-21,21,Sunday,51,12,December,4,2025,True,6.0,4.6,13.0,91.0,7.0,77.0,1004.0,Patchy rain possible
+20251111,2025-11-11,11,Tuesday,46,11,November,4,2025,False,8.0,11.8,13.0,94.0,6.0,82.0,991.0,Light rain
+20251018,2025-10-18,18,Saturday,42,10,October,4,2025,True,11.0,5.4,21.0,86.0,8.0,93.0,1015.0,Light rain shower
+20251102,2025-11-02,2,Sunday,44,11,November,4,2025,True,7.0,2.6,17.0,87.0,9.0,91.0,999.0,Light rain shower
+20260805,2026-08-05,5,Wednesday,32,8,August,3,2026,False,12.0,5.9,21.0,93.0,9.0,97.0,1010.0,Moderate rain at times
+20260320,2026-03-20,20,Friday,12,3,March,1,2026,False,9.0,0.0,5.0,81.0,8.0,29.0,1022.0,Overcast
+20250916,2025-09-16,16,Tuesday,38,9,September,3,2025,False,12.0,1.9,17.0,85.0,9.0,75.0,1012.0,Patchy rain possible
+20251211,2025-12-11,11,Thursday,50,12,December,4,2025,False,8.0,4.4,19.0,84.0,8.0,77.0,1005.0,Light rain
+20250827,2025-08-27,27,Wednesday,35,8,August,3,2025,False,13.0,10.1,15.0,90.0,8.0,87.0,994.0,Light rain shower
+20251225,2025-12-25,25,Thursday,52,12,December,4,2025,False,1.0,0.0,6.0,93.0,6.0,9.0,1038.0,Mist
+20260401,2026-04-01,1,Wednesday,14,4,April,2,2026,False,8.0,1.9,18.0,85.0,9.0,87.0,1022.0,Moderate rain at times
+20250909,2025-09-09,9,Tuesday,37,9,September,3,2025,False,12.0,0.1,19.0,85.0,10.0,73.0,1005.0,Patchy rain possible
+20251129,2025-11-29,29,Saturday,48,11,November,4,2025,True,3.0,0.0,4.0,82.0,10.0,75.0,1008.0,Patchy rain possible
+20260318,2026-03-18,18,Wednesday,12,3,March,1,2026,False,6.0,0.1,7.0,89.0,9.0,83.0,1020.0,Patchy rain possible
+20260127,2026-01-27,27,Tuesday,5,1,January,1,2026,False,5.0,10.2,35.0,88.0,7.0,92.0,973.0,Light rain shower
+20251014,2025-10-14,14,Tuesday,42,10,October,4,2025,False,9.0,0.0,3.0,89.0,5.0,17.0,1032.0,Mist
+20260102,2026-01-02,2,Friday,1,1,January,1,2026,False,3.0,1.6,22.0,69.0,9.0,78.0,1015.0,Moderate or heavy snow showers
+20260329,2026-03-29,29,Sunday,13,3,March,1,2026,True,7.0,7.8,28.0,81.0,10.0,85.0,1019.0,Light rain
+20251125,2025-11-25,25,Tuesday,48,11,November,4,2025,False,3.0,0.1,6.0,85.0,10.0,56.0,1018.0,Patchy rain possible
+20251114,2025-11-14,14,Friday,46,11,November,4,2025,False,5.0,0.0,23.0,73.0,10.0,34.0,1017.0,Patchy rain possible
+20250922,2025-09-22,22,Monday,39,9,September,3,2025,False,8.0,0.0,5.0,72.0,10.0,48.0,1031.0,Patchy rain possible
+20260221,2026-02-21,21,Saturday,8,2,February,1,2026,True,9.0,8.8,21.0,93.0,8.0,91.0,1007.0,Light rain shower
+20251201,2025-12-01,1,Monday,49,12,December,4,2025,False,7.0,2.1,10.0,91.0,8.0,84.0,991.0,Light rain
+20260810,2026-08-10,10,Monday,33,8,August,3,2026,False,13.0,0.7,6.0,80.0,8.0,60.0,1021.0,Patchy rain possible
+20260305,2026-03-05,5,Thursday,10,3,March,1,2026,False,5.0,8.2,15.0,88.0,8.0,86.0,1016.0,Light rain shower
+20250921,2025-09-21,21,Sunday,38,9,September,3,2025,True,8.0,2.3,14.0,71.0,10.0,80.0,1025.0,Light rain shower
+20260220,2026-02-20,20,Friday,8,2,February,1,2026,False,7.0,4.4,20.0,91.0,9.0,95.0,1004.0,Light rain shower
+20250910,2025-09-10,10,Wednesday,37,9,September,3,2025,False,12.0,11.9,15.0,93.0,7.0,87.0,996.0,Light rain shower
+20260223,2026-02-23,23,Monday,9,2,February,1,2026,False,8.0,5.3,19.0,88.0,8.0,97.0,1005.0,Light rain
+20260217,2026-02-17,17,Tuesday,8,2,February,1,2026,False,1.0,0.1,11.0,70.0,10.0,68.0,1015.0,Overcast
+20251119,2025-11-19,19,Wednesday,47,11,November,4,2025,False,3.0,5.8,21.0,68.0,7.0,84.0,1021.0,Moderate or heavy snow showers
+20260210,2026-02-10,10,Tuesday,7,2,February,1,2026,False,7.0,6.5,13.0,95.0,5.0,99.0,985.0,Light drizzle
+20260325,2026-03-25,25,Wednesday,13,3,March,1,2026,False,4.0,6.2,25.0,80.0,9.0,81.0,1012.0,Moderate or heavy snow showers
+20260314,2026-03-14,14,Saturday,11,3,March,1,2026,True,3.0,4.5,12.0,90.0,7.0,89.0,1004.0,Light rain shower
+20251126,2025-11-26,26,Wednesday,48,11,November,4,2025,False,6.0,4.2,11.0,94.0,3.0,96.0,1012.0,Light rain
+20260203,2026-02-03,3,Tuesday,6,2,February,1,2026,False,4.0,0.1,23.0,84.0,10.0,99.0,997.0,Patchy rain possible
+20251218,2025-12-18,18,Thursday,51,12,December,4,2025,False,5.0,6.4,23.0,86.0,9.0,77.0,993.0,Light rain
+20260115,2026-01-15,15,Thursday,3,1,January,1,2026,False,2.0,0.0,8.0,94.0,4.0,63.0,996.0,Fog
+20260801,2026-08-01,1,Saturday,31,8,August,3,2026,True,13.0,0.2,13.0,79.0,7.0,51.0,1019.0,Patchy rain possible
+20260809,2026-08-09,9,Sunday,32,8,August,3,2026,True,14.0,5.3,11.0,87.0,6.0,85.0,1013.0,Moderate rain at times
+20250816,2025-08-16,16,Saturday,33,8,August,3,2025,True,16.0,0.0,7.0,80.0,6.0,34.0,1027.0,Fog
+20250817,2025-08-17,17,Sunday,33,8,August,3,2025,True,17.0,0.0,10.0,76.0,8.0,8.0,1024.0,Mist
+20251210,2025-12-10,10,Wednesday,50,12,December,4,2025,False,9.0,1.3,29.0,78.0,9.0,87.0,1002.0,Light rain shower
+20251203,2025-12-03,3,Wednesday,49,12,December,4,2025,False,5.0,1.8,13.0,91.0,7.0,94.0,995.0,Fog
+20251216,2025-12-16,16,Tuesday,51,12,December,4,2025,False,2.0,0.0,8.0,92.0,9.0,13.0,1010.0,Mist
+20251030,2025-10-30,30,Thursday,44,10,October,4,2025,False,8.0,10.9,22.0,83.0,9.0,80.0,993.0,Light rain
+20251231,2025-12-31,31,Wednesday,1,12,December,4,2025,False,1.0,0.4,10.0,87.0,10.0,56.0,1031.0,Overcast
+20260807,2026-08-07,7,Friday,32,8,August,3,2026,False,14.0,0.0,16.0,78.0,8.0,76.0,1020.0,Overcast
+20250930,2025-09-30,30,Tuesday,40,9,September,3,2025,False,14.0,1.8,13.0,89.0,8.0,84.0,1019.0,Fog
+20250826,2025-08-26,26,Tuesday,35,8,August,3,2025,False,14.0,2.4,16.0,84.0,8.0,72.0,1000.0,Light rain shower
+20260306,2026-03-06,6,Friday,10,3,March,1,2026,False,3.0,0.0,8.0,69.0,10.0,2.0,1025.0,Sunny
+20250902,2025-09-02,2,Tuesday,36,9,September,3,2025,False,12.0,1.3,9.0,84.0,8.0,73.0,998.0,Light rain shower
+20260212,2026-02-12,12,Thursday,7,2,February,1,2026,False,3.0,16.8,21.0,97.0,4.0,100.0,985.0,Heavy snow
+20260130,2026-01-30,30,Friday,5,1,January,1,2026,False,6.0,3.9,26.0,91.0,8.0,89.0,982.0,Light rain shower
+20250829,2025-08-29,29,Friday,35,8,August,3,2025,False,14.0,3.2,16.0,89.0,7.0,87.0,992.0,Light rain shower
+20250908,2025-09-08,8,Monday,37,9,September,3,2025,False,11.0,0.3,12.0,80.0,7.0,49.0,1009.0,Light drizzle
+20250925,2025-09-25,25,Thursday,39,9,September,3,2025,False,11.0,0.0,13.0,80.0,7.0,26.0,1026.0,Mist
+20260101,2026-01-01,1,Thursday,1,1,January,1,2026,False,5.0,2.1,21.0,74.0,10.0,91.0,1014.0,Patchy rain possible
+20260122,2026-01-22,22,Thursday,4,1,January,1,2026,False,7.0,7.2,13.0,94.0,7.0,98.0,981.0,Moderate or heavy rain with thunder
+20260208,2026-02-08,8,Sunday,6,2,February,1,2026,True,5.0,0.0,6.0,93.0,5.0,67.0,997.0,Patchy rain possible
+20250903,2025-09-03,3,Wednesday,36,9,September,3,2025,False,11.0,3.5,6.0,94.0,5.0,89.0,993.0,Light rain
+20260119,2026-01-19,19,Monday,4,1,January,1,2026,False,4.0,7.9,17.0,89.0,7.0,99.0,1008.0,Light drizzle
+20260327,2026-03-27,27,Friday,13,3,March,1,2026,False,6.0,3.3,16.0,82.0,8.0,85.0,1018.0,Light rain shower
+20251204,2025-12-04,4,Thursday,49,12,December,4,2025,False,4.0,7.2,12.0,90.0,8.0,79.0,993.0,Patchy rain possible
+20251117,2025-11-17,17,Monday,47,11,November,4,2025,False,4.0,0.0,6.0,76.0,10.0,68.0,1027.0,Patchy rain possible
+20250901,2025-09-01,1,Monday,36,9,September,3,2025,False,13.0,12.1,19.0,92.0,8.0,98.0,991.0,Moderate or heavy rain with thunder
+20260811,2026-08-11,11,Tuesday,33,8,August,3,2026,False,16.0,0.0,10.0,75.0,8.0,38.0,1021.0,Overcast
+20251003,2025-10-03,3,Friday,40,10,October,4,2025,False,11.0,10.2,22.0,93.0,6.0,92.0,997.0,Moderate rain
+20260726,2026-07-26,26,Sunday,30,7,July,3,2026,True,14.0,4.4,20.0,90.0,9.0,97.0,1007.0,Patchy rain possible
+20251215,2025-12-15,15,Monday,51,12,December,4,2025,False,5.0,0.1,7.0,91.0,7.0,32.0,1002.0,Mist
+20251219,2025-12-19,19,Friday,51,12,December,4,2025,False,7.0,2.8,24.0,84.0,9.0,96.0,1001.0,Light rain shower
+20260326,2026-03-26,26,Thursday,13,3,March,1,2026,False,5.0,3.1,12.0,92.0,8.0,93.0,1019.0,Light drizzle
+20250818,2025-08-18,18,Monday,34,8,August,3,2025,False,18.0,0.0,10.0,79.0,9.0,21.0,1022.0,Partly cloudy
+20250828,2025-08-28,28,Thursday,35,8,August,3,2025,False,13.0,11.0,14.0,95.0,7.0,100.0,991.0,Moderate or heavy rain with thunder
+20251108,2025-11-08,8,Saturday,45,11,November,4,2025,True,9.0,16.2,8.0,95.0,6.0,84.0,1008.0,Moderate or heavy rain with thunder
+20260328,2026-03-28,28,Saturday,13,3,March,1,2026,True,4.0,5.3,23.0,75.0,9.0,73.0,1026.0,Light sleet showers
+20251213,2025-12-13,13,Saturday,50,12,December,4,2025,True,8.0,0.6,26.0,86.0,10.0,96.0,1013.0,Patchy rain possible
+20260219,2026-02-19,19,Thursday,8,2,February,1,2026,False,3.0,3.0,12.0,93.0,7.0,81.0,1004.0,Light rain shower
+20250830,2025-08-30,30,Saturday,35,8,August,3,2025,True,13.0,6.5,17.0,85.0,8.0,89.0,991.0,Moderate rain
+20251012,2025-10-12,12,Sunday,41,10,October,4,2025,True,9.0,0.0,3.0,88.0,7.0,70.0,1032.0,Mist
+20260815,2026-08-15,15,Saturday,33,8,August,3,2026,True,14.0,0.3,9.0,81.0,8.0,70.0,1021.0,Patchy rain possible
+20260307,2026-03-07,7,Saturday,10,3,March,1,2026,True,6.0,0.0,13.0,83.0,9.0,33.0,1022.0,Patchy rain possible
+20260813,2026-08-13,13,Thursday,33,8,August,3,2026,False,19.0,5.3,8.0,90.0,6.0,73.0,1019.0,Moderate rain at times
+20260112,2026-01-12,12,Monday,3,1,January,1,2026,False,6.0,0.6,21.0,85.0,10.0,83.0,990.0,Patchy rain possible
+20250831,2025-08-31,31,Sunday,35,8,August,3,2025,True,13.0,0.9,28.0,77.0,10.0,97.0,986.0,Light drizzle
+20251107,2025-11-07,7,Friday,45,11,November,4,2025,False,11.0,1.7,11.0,93.0,6.0,85.0,1000.0,Light rain shower
+20251006,2025-10-06,6,Monday,41,10,October,4,2025,False,14.0,0.0,19.0,84.0,10.0,84.0,1017.0,Patchy rain possible
+20260201,2026-02-01,1,Sunday,5,2,February,1,2026,True,4.0,2.0,9.0,91.0,7.0,62.0,999.0,Light drizzle
+20251118,2025-11-18,18,Tuesday,47,11,November,4,2025,False,5.0,4.1,21.0,82.0,8.0,92.0,1015.0,Light rain shower
+20250929,2025-09-29,29,Monday,40,9,September,3,2025,False,11.0,0.3,10.0,83.0,9.0,64.0,1022.0,Light drizzle
+20251109,2025-11-09,9,Sunday,45,11,November,4,2025,True,9.0,4.6,11.0,91.0,7.0,68.0,1005.0,Patchy rain possible
+20260120,2026-01-20,20,Tuesday,4,1,January,1,2026,False,6.0,0.7,18.0,87.0,8.0,77.0,1000.0,Patchy rain possible
+20260211,2026-02-11,11,Wednesday,7,2,February,1,2026,False,7.0,8.7,7.0,98.0,2.0,100.0,976.0,Light rain shower
+20250911,2025-09-11,11,Thursday,37,9,September,3,2025,False,10.0,9.3,14.0,93.0,6.0,82.0,996.0,Light rain shower
+20260126,2026-01-26,26,Monday,5,1,January,1,2026,False,5.0,17.4,25.0,92.0,8.0,98.0,993.0,Moderate rain
+20260128,2026-01-28,28,Wednesday,5,1,January,1,2026,False,4.0,0.1,20.0,89.0,10.0,47.0,989.0,Patchy rain possible
+20250928,2025-09-28,28,Sunday,39,9,September,3,2025,True,9.0,2.0,7.0,90.0,6.0,70.0,1020.0,Patchy rain possible
+20251227,2025-12-27,27,Saturday,52,12,December,4,2025,True,1.0,0.0,6.0,94.0,4.0,19.0,1040.0,Mist
+20260316,2026-03-16,16,Monday,12,3,March,1,2026,False,7.0,2.2,24.0,90.0,9.0,98.0,1003.0,Light rain
+20251205,2025-12-05,5,Friday,49,12,December,4,2025,False,3.0,8.1,16.0,92.0,8.0,75.0,987.0,Light rain
+20260731,2026-07-31,31,Friday,31,7,July,3,2026,False,12.0,3.1,13.0,80.0,7.0,73.0,1017.0,Heavy rain at times
+20260816,2026-08-16,16,Sunday,33,8,August,3,2026,True,10.0,10.4,15.0,87.0,5.0,95.0,1017.0,Moderate or heavy rain shower
+20260202,2026-02-02,2,Monday,6,2,February,1,2026,False,4.0,0.0,19.0,89.0,9.0,77.0,997.0,Fog
+20260315,2026-03-15,15,Sunday,11,3,March,1,2026,True,4.0,5.7,24.0,86.0,8.0,88.0,1002.0,Moderate or heavy snow showers
+20260103,2026-01-03,3,Saturday,1,1,January,1,2026,True,2.0,1.9,21.0,66.0,9.0,83.0,1018.0,Moderate or heavy snow showers
+20250920,2025-09-20,20,Saturday,38,9,September,3,2025,True,11.0,7.4,7.0,87.0,9.0,77.0,1008.0,Light rain shower
+20251029,2025-10-29,29,Wednesday,44,10,October,4,2025,False,6.0,16.7,12.0,88.0,9.0,85.0,997.0,Moderate or heavy rain with thunder
+20260109,2026-01-09,9,Friday,2,1,January,1,2026,False,2.0,1.0,9.0,87.0,10.0,70.0,1000.0,Light rain shower
+20260729,2026-07-29,29,Wednesday,31,7,July,3,2026,False,14.0,4.3,8.0,88.0,8.0,79.0,1012.0,Moderate rain at times
+20250927,2025-09-27,27,Saturday,39,9,September,3,2025,True,10.0,9.8,11.0,87.0,8.0,78.0,1014.0,Light rain shower
+20260227,2026-02-27,27,Friday,9,2,February,1,2026,False,4.0,0.9,8.0,88.0,7.0,86.0,1011.0,Light rain shower
+20251124,2025-11-24,24,Monday,48,11,November,4,2025,False,6.0,0.7,15.0,78.0,10.0,76.0,1004.0,Patchy rain possible
+20251116,2025-11-16,16,Sunday,46,11,November,4,2025,True,6.0,0.1,9.0,80.0,10.0,68.0,1020.0,Patchy rain possible
+20260225,2026-02-25,25,Wednesday,9,2,February,1,2026,False,10.0,4.8,11.0,92.0,7.0,97.0,1008.0,Light rain shower
+20250913,2025-09-13,13,Saturday,37,9,September,3,2025,True,9.0,5.6,12.0,93.0,5.0,74.0,1001.0,Light rain shower
+20251223,2025-12-23,23,Tuesday,52,12,December,4,2025,False,7.0,0.1,6.0,95.0,3.0,82.0,1022.0,Fog
+20260226,2026-02-26,26,Thursday,9,2,February,1,2026,False,8.0,3.0,18.0,91.0,9.0,94.0,1003.0,Light rain shower
+20251008,2025-10-08,8,Wednesday,41,10,October,4,2025,False,11.0,0.0,16.0,80.0,10.0,89.0,1024.0,Patchy rain possible
+20260330,2026-03-30,30,Monday,14,3,March,1,2026,False,8.0,1.3,22.0,79.0,10.0,93.0,1024.0,Patchy rain possible
+20260301,2026-03-01,1,Sunday,9,3,March,1,2026,True,8.0,12.1,19.0,92.0,7.0,98.0,999.0,Moderate rain
+20250904,2025-09-04,4,Thursday,36,9,September,3,2025,False,12.0,1.1,11.0,86.0,5.0,75.0,1003.0,Light rain shower
+20260308,2026-03-08,8,Sunday,10,3,March,1,2026,True,6.0,0.0,12.0,76.0,10.0,80.0,1017.0,Overcast
+20251110,2025-11-10,10,Monday,46,11,November,4,2025,False,6.0,8.7,8.0,95.0,5.0,77.0,999.0,Light drizzle
+20260125,2026-01-25,25,Sunday,4,1,January,1,2026,True,5.0,5.4,21.0,92.0,9.0,96.0,992.0,Light drizzle
+20260717,2026-07-17,17,Friday,29,7,July,3,2026,False,15.0,0.0,10.0,79.0,8.0,33.0,1022.0,Overcast
+20250820,2025-08-20,20,Wednesday,34,8,August,3,2025,False,15.0,0.0,6.0,78.0,9.0,54.0,1022.0,Patchy rain possible
+20250823,2025-08-23,23,Saturday,34,8,August,3,2025,True,17.0,1.6,5.0,87.0,8.0,92.0,1018.0,Patchy rain possible
+20251120,2025-11-20,20,Thursday,47,11,November,4,2025,False,2.0,3.6,12.0,77.0,9.0,84.0,1023.0,Moderate or heavy snow showers
+20250915,2025-09-15,15,Monday,38,9,September,3,2025,False,12.0,9.2,22.0,94.0,8.0,94.0,992.0,Light rain shower
+20260215,2026-02-15,15,Sunday,7,2,February,1,2026,True,4.0,2.5,16.0,92.0,7.0,88.0,993.0,Light rain shower
+20251212,2025-12-12,12,Friday,50,12,December,4,2025,False,5.0,0.0,18.0,86.0,10.0,46.0,1009.0,Patchy rain possible
+20251220,2025-12-20,20,Saturday,51,12,December,4,2025,True,7.0,4.3,18.0,87.0,9.0,90.0,997.0,Light rain shower
+20260817,2026-08-17,17,Monday,34,8,August,3,2026,False,,,,,,,,
+20251105,2025-11-05,5,Wednesday,45,11,November,4,2025,False,13.0,12.9,10.0,96.0,4.0,97.0,998.0,Moderate rain
+20260310,2026-03-10,10,Tuesday,11,3,March,1,2026,False,8.0,6.7,23.0,86.0,9.0,98.0,1000.0,Light rain
+20251026,2025-10-26,26,Sunday,43,10,October,4,2025,True,8.0,4.3,23.0,82.0,9.0,96.0,1007.0,Light rain shower
+20260313,2026-03-13,13,Friday,11,3,March,1,2026,False,3.0,4.6,21.0,86.0,8.0,81.0,992.0,Light snow showers
+20251229,2025-12-29,29,Monday,1,12,December,4,2025,False,2.0,0.0,4.0,90.0,9.0,55.0,1033.0,Mist
+20260725,2026-07-25,25,Saturday,30,7,July,3,2026,True,15.0,3.9,18.0,84.0,9.0,96.0,1007.0,Patchy rain possible
+20260312,2026-03-12,12,Thursday,11,3,March,1,2026,False,5.0,12.2,25.0,89.0,8.0,91.0,992.0,Light sleet showers
+20260304,2026-03-04,4,Wednesday,10,3,March,1,2026,False,7.0,0.0,15.0,85.0,10.0,84.0,1020.0,Patchy rain possible
+20250822,2025-08-22,22,Friday,34,8,August,3,2025,False,14.0,0.0,5.0,77.0,8.0,37.0,1021.0,Partly cloudy
+20251101,2025-11-01,1,Saturday,44,11,November,4,2025,True,7.0,5.8,16.0,86.0,9.0,79.0,991.0,Light rain shower
+20251020,2025-10-20,20,Monday,43,10,October,4,2025,False,9.0,0.0,4.0,95.0,4.0,65.0,987.0,Mist
+20251023,2025-10-23,23,Thursday,43,10,October,4,2025,False,7.0,4.2,21.0,78.0,9.0,91.0,994.0,Light rain shower
+20260123,2026-01-23,23,Friday,4,1,January,1,2026,False,6.0,3.1,27.0,87.0,9.0,98.0,982.0,Light drizzle
+20251017,2025-10-17,17,Friday,42,10,October,4,2025,False,8.0,0.0,5.0,89.0,5.0,29.0,1025.0,Mist
+20260110,2026-01-10,10,Saturday,2,1,January,1,2026,True,1.0,2.2,9.0,89.0,9.0,51.0,1014.0,Overcast
+20260808,2026-08-08,8,Saturday,32,8,August,3,2026,True,15.0,0.2,16.0,88.0,8.0,72.0,1015.0,Overcast
+20251022,2025-10-22,22,Wednesday,43,10,October,4,2025,False,7.0,1.6,11.0,89.0,8.0,68.0,991.0,Light rain shower
+20251214,2025-12-14,14,Sunday,50,12,December,4,2025,True,11.0,10.3,21.0,92.0,8.0,100.0,1000.0,Light drizzle
+20260723,2026-07-23,23,Thursday,30,7,July,3,2026,False,15.0,0.5,11.0,81.0,6.0,77.0,1026.0,Patchy rain possible
+20260209,2026-02-09,9,Monday,7,2,February,1,2026,False,5.0,0.4,12.0,91.0,7.0,69.0,995.0,Fog
+20251208,2025-12-08,8,Monday,50,12,December,4,2025,False,7.0,0.5,17.0,87.0,10.0,78.0,997.0,Patchy rain possible
+20251106,2025-11-06,6,Thursday,45,11,November,4,2025,False,10.0,6.7,5.0,93.0,6.0,70.0,1004.0,Light rain
+20260129,2026-01-29,29,Thursday,5,1,January,1,2026,False,6.0,3.1,27.0,87.0,10.0,88.0,991.0,Light rain shower
+20260309,2026-03-09,9,Monday,11,3,March,1,2026,False,6.0,1.3,5.0,94.0,5.0,93.0,1015.0,Light drizzle
+20260803,2026-08-03,3,Monday,32,8,August,3,2026,False,15.0,7.0,9.0,92.0,6.0,92.0,1011.0,Patchy rain possible
+20260204,2026-02-04,4,Wednesday,6,2,February,1,2026,False,5.0,0.6,20.0,89.0,10.0,95.0,990.0,Light drizzle
+20260205,2026-02-05,5,Thursday,6,2,February,1,2026,False,5.0,6.9,31.0,91.0,8.0,100.0,985.0,Light rain
+20251217,2025-12-17,17,Wednesday,51,12,December,4,2025,False,7.0,3.2,20.0,86.0,9.0,78.0,1000.0,Light rain shower
+20250815,2025-08-15,15,Friday,33,8,August,3,2025,False,,,,,,,,
+20260117,2026-01-17,17,Saturday,3,1,January,1,2026,True,5.0,1.0,10.0,94.0,5.0,96.0,1012.0,Light drizzle
+20251011,2025-10-11,11,Saturday,41,10,October,4,2025,True,9.0,0.0,3.0,87.0,7.0,20.0,1034.0,Mist
+20260303,2026-03-03,3,Tuesday,10,3,March,1,2026,False,4.0,0.1,7.0,77.0,10.0,18.0,1025.0,Sunny
+20250917,2025-09-17,17,Wednesday,38,9,September,3,2025,False,13.0,8.9,21.0,84.0,9.0,85.0,1006.0,Patchy rain possible
+20260718,2026-07-18,18,Saturday,29,7,July,3,2026,True,14.0,0.0,14.0,81.0,7.0,51.0,1024.0,Overcast
+20251230,2025-12-30,30,Tuesday,1,12,December,4,2025,False,0.0,0.0,5.0,89.0,10.0,6.0,1039.0,Sunny
+20251019,2025-10-19,19,Sunday,42,10,October,4,2025,True,11.0,9.5,15.0,92.0,7.0,77.0,993.0,Light rain
+20250905,2025-09-05,5,Friday,36,9,September,3,2025,False,12.0,0.0,10.0,83.0,7.0,88.0,1015.0,Fog
+20260720,2026-07-20,20,Monday,30,7,July,3,2026,False,15.0,0.5,12.0,82.0,9.0,94.0,1031.0,Patchy rain possible
+20260206,2026-02-06,6,Friday,6,2,February,1,2026,False,3.0,4.3,26.0,96.0,9.0,100.0,989.0,Light sleet
+20251130,2025-11-30,30,Sunday,48,11,November,4,2025,True,3.0,2.3,14.0,86.0,9.0,48.0,1010.0,Patchy rain possible
+20260722,2026-07-22,22,Wednesday,30,7,July,3,2026,False,15.0,0.3,13.0,80.0,9.0,86.0,1030.0,Patchy rain possible
+20251112,2025-11-12,12,Wednesday,46,11,November,4,2025,False,8.0,2.0,10.0,91.0,8.0,45.0,997.0,Mist
+20251127,2025-11-27,27,Thursday,48,11,November,4,2025,False,11.0,4.8,26.0,85.0,9.0,98.0,1000.0,Moderate rain
+20260302,2026-03-02,2,Monday,10,3,March,1,2026,False,6.0,1.8,10.0,85.0,7.0,82.0,1004.0,Patchy rain possible
+20260719,2026-07-19,19,Sunday,29,7,July,3,2026,True,14.0,0.0,10.0,75.0,6.0,44.0,1028.0,Overcast
+20260216,2026-02-16,16,Monday,8,2,February,1,2026,False,3.0,14.0,17.0,88.0,8.0,86.0,997.0,Light rain shower
+20260224,2026-02-24,24,Tuesday,9,2,February,1,2026,False,10.0,0.0,20.0,84.0,10.0,100.0,1003.0,Patchy rain possible
+20250926,2025-09-26,26,Friday,39,9,September,3,2025,False,11.0,0.0,18.0,79.0,10.0,20.0,1019.0,Partly cloudy
+20260108,2026-01-08,8,Thursday,2,1,January,1,2026,False,2.0,0.1,6.0,93.0,6.0,87.0,1000.0,Light freezing rain
+20260131,2026-01-31,31,Saturday,5,1,January,1,2026,True,6.0,0.1,11.0,90.0,9.0,98.0,995.0,Patchy rain possible
+20260113,2026-01-13,13,Tuesday,3,1,January,1,2026,False,3.0,6.1,15.0,84.0,9.0,80.0,1000.0,Patchy rain possible
+20251024,2025-10-24,24,Friday,43,10,October,4,2025,False,8.0,4.4,20.0,88.0,8.0,94.0,996.0,Light rain shower
+20250824,2025-08-24,24,Sunday,34,8,August,3,2025,True,17.0,0.0,9.0,80.0,7.0,54.0,1015.0,Mist
+20251027,2025-10-27,27,Monday,44,10,October,4,2025,False,9.0,4.1,18.0,78.0,10.0,78.0,1006.0,Light rain shower
+20251209,2025-12-09,9,Tuesday,50,12,December,4,2025,False,10.0,10.6,29.0,87.0,8.0,94.0,986.0,Light rain shower
+20251004,2025-10-04,4,Saturday,40,10,October,4,2025,True,10.0,7.6,33.0,84.0,9.0,79.0,996.0,Light rain shower
+20260322,2026-03-22,22,Sunday,12,3,March,1,2026,True,7.0,0.4,12.0,77.0,10.0,71.0,1019.0,Patchy rain possible

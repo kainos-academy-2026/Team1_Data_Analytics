@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from pathlib import Path
@@ -263,6 +264,86 @@ with chart_col4:
             st.info("No data for selected filters.")
     else:
         st.info("No data for selected filters.")
+
+# --- Interactive Zone Revenue Map ---
+st.markdown("---")
+st.subheader("\U0001F5FA Zone Revenue Heatmap \u2014 City of Derry")
+
+# Build zone-level revenue data from filtered zone_daily_agg
+filtered_zone_map = filter_zone_agg(zone_daily_df)
+
+if not filtered_zone_map.empty:
+    zone_revenue_map = (
+        filtered_zone_map
+        .groupby("pickup_zone_key", as_index=False)["total_revenue"]
+        .sum()
+        .merge(zones_df, left_on="pickup_zone_key", right_on="zone_key", how="inner")
+    )
+
+    # Map controls
+    map_col1, map_col2 = st.columns([1, 3])
+    with map_col1:
+        map_metric = st.radio(
+            "Colour by",
+            ["Total Revenue", "Revenue per Trip"],
+            index=0,
+            key="map_metric"
+        )
+        radius_val = st.slider("Heatmap radius", min_value=5, max_value=40, value=20, key="map_radius")
+        opacity_val = st.slider("Opacity", min_value=0.2, max_value=1.0, value=0.7, step=0.1, key="map_opacity")
+
+    # Compute trips per zone for per-trip metric
+    if map_metric == "Revenue per Trip":
+        zone_trips = (
+            filtered_zone_map
+            .groupby("pickup_zone_key", as_index=False)["total_trips"]
+            .sum()
+        )
+        zone_revenue_map = zone_revenue_map.merge(zone_trips, on="pickup_zone_key", how="left")
+        zone_revenue_map["revenue_per_trip"] = (
+            zone_revenue_map["total_revenue"] / zone_revenue_map["total_trips"].replace(0, 1)
+        )
+        z_col = "revenue_per_trip"
+        hover_label = "Revenue/Trip (\u00a3)"
+    else:
+        z_col = "total_revenue"
+        hover_label = "Total Revenue (\u00a3)"
+
+    with map_col2:
+        fig_map = px.density_mapbox(
+            zone_revenue_map,
+            lat="latitude",
+            lon="longitude",
+            z=z_col,
+            radius=radius_val,
+            opacity=opacity_val,
+            center={"lat": 55.006, "lon": -7.32},
+            zoom=11.5,
+            mapbox_style="open-street-map",
+            color_continuous_scale="YlOrRd",
+            hover_name="zone_code",
+            hover_data={z_col: ":.2f", "latitude": False, "longitude": False},
+            labels={z_col: hover_label},
+        )
+        fig_map.update_layout(
+            height=600,
+            margin={"r": 0, "t": 0, "l": 0, "b": 0},
+            coloraxis_colorbar=dict(title=hover_label),
+        )
+        st.plotly_chart(fig_map, use_container_width=True)
+
+    # Summary table beneath the map
+    st.markdown("**Zone Revenue Summary (filtered)**")
+    summary_df = (
+        zone_revenue_map[["zone_code", "total_revenue"]]
+        .rename(columns={"zone_code": "Zone", "total_revenue": "Revenue (\u00a3)"})
+        .sort_values("Revenue (\u00a3)", ascending=False)
+        .reset_index(drop=True)
+    )
+    summary_df["Revenue (\u00a3)"] = summary_df["Revenue (\u00a3)"].map(lambda x: f"{x:,.2f}")
+    st.dataframe(summary_df, use_container_width=True, height=250)
+else:
+    st.info("No zone data for the selected filters.")
 
 # --- Hourly Analysis Section (matches dashboard heatmap + line) ---
 st.markdown("---")
