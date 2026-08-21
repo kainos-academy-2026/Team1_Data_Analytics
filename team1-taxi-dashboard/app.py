@@ -596,8 +596,60 @@ if not filtered_trips.empty:
         "payment_type", "fare_amount", "distance", "trip_duration_minutes",
         "booking_source", "priority_level"
     ]].rename(columns={"zone_code": "pickup_zone"})
-    display_df = display_df.sort_values("full_date", ascending=False).head(500)
-    st.dataframe(display_df, use_container_width=True, height=400)
-    st.caption(f"Showing {len(display_df)} rows (limited to 500)")
+    display_df = display_df.sort_values("full_date", ascending=False).reset_index(drop=True)
+
+    @st.fragment
+    def paginated_table(df):
+        """Render the table with pagination as an isolated fragment (no full-page rerun)."""
+        total_rows = len(df)
+        page_size_options = [25, 50, 100, 200]
+
+        if "table_page" not in st.session_state:
+            st.session_state.table_page = 1
+        if "table_page_size" not in st.session_state:
+            st.session_state.table_page_size = 50
+
+        page_size = st.session_state.table_page_size
+        total_pages = max(1, (total_rows + page_size - 1) // page_size)
+        if st.session_state.table_page > total_pages:
+            st.session_state.table_page = total_pages
+        current_page = st.session_state.table_page
+
+        start_idx = (current_page - 1) * page_size
+        end_idx = min(start_idx + page_size, total_rows)
+        page_df = df.iloc[start_idx:end_idx]
+
+        st.dataframe(page_df, use_container_width=True, height=400)
+
+        # Compact pagination bar
+        pg_cols = st.columns([1.2, 0.5, 0.8, 0.5, 1.2, 1.5])
+        with pg_cols[0]:
+            if st.button("◀ Previous", disabled=(current_page <= 1), key="pg_prev", use_container_width=True):
+                st.session_state.table_page -= 1
+                st.rerun(scope="fragment")
+        with pg_cols[2]:
+            st.markdown(
+                f"<div style='text-align:center; padding-top:6px; font-size:0.9rem;'>"
+                f"Page <b>{current_page}</b> of <b>{total_pages}</b></div>",
+                unsafe_allow_html=True
+            )
+        with pg_cols[4]:
+            if st.button("Next ▶", disabled=(current_page >= total_pages), key="pg_next", use_container_width=True):
+                st.session_state.table_page += 1
+                st.rerun(scope="fragment")
+        with pg_cols[5]:
+            new_size = st.selectbox(
+                "Rows/page", options=page_size_options,
+                index=page_size_options.index(page_size),
+                key="pg_size_select", label_visibility="collapsed"
+            )
+            if new_size != page_size:
+                st.session_state.table_page_size = new_size
+                st.session_state.table_page = 1
+                st.rerun(scope="fragment")
+
+        st.caption(f"Showing rows {start_idx + 1}–{end_idx} of {total_rows:,}")
+
+    paginated_table(display_df)
 else:
     st.info("No trip data for the selected filters.")
