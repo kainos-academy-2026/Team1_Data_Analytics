@@ -420,7 +420,7 @@ with heat_col1:
 
 # Heatmap 2: Total Trips per Hour by Day of Week
 with heat_col2:
-    st.markdown("**Trips per Month Hour by Day of Week**")
+    st.markdown("**Trips per Hour by Day of Week**")
     if not filtered_hourly.empty:
         sum_pivot = filtered_hourly.groupby(["day_name", "hour_of_day"], as_index=False)["trip_count"].sum()
         sum_matrix = sum_pivot.pivot(index="day_name", columns="hour_of_day", values="trip_count")
