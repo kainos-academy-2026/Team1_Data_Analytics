@@ -86,6 +86,16 @@ selected_payment_types = st.sidebar.multiselect("Payment Type", options=payment_
 hour_options = list(range(24))
 selected_hours = st.sidebar.multiselect("Hour of Day", options=hour_options, default=[], format_func=lambda x: f"{x:02d}:00")
 
+# Weather Condition filter
+weather_options = sorted(dates_df["weather_desc"].dropna().unique().tolist())
+selected_weather = st.sidebar.multiselect("Weather Condition", options=weather_options, default=[])
+
+# Derive valid date_keys for weather filter (used across all filter functions)
+if selected_weather:
+    weather_date_keys = dates_df[dates_df["weather_desc"].isin(selected_weather)]["date_key"].tolist()
+else:
+    weather_date_keys = None
+
 
 # --- Apply Filters ---
 def filter_kpis(df):
@@ -269,20 +279,23 @@ if selected_days:
     filtered_hourly = filtered_hourly[filtered_hourly["day_name"].isin(selected_days)]
 if selected_hours:
     filtered_hourly = filtered_hourly[filtered_hourly["hour_of_day"].isin(selected_hours)]
+if weather_date_keys is not None:
+    hourly_with_keys = filtered_hourly.merge(dates_df[["full_date", "date_key"]], left_on="trip_date", right_on="full_date", how="inner")
+    filtered_hourly = hourly_with_keys[hourly_with_keys["date_key"].isin(weather_date_keys)].drop(columns=["full_date", "date_key"])
 
 # Trips per Hour by Day of Week — LINE chart (matches dashboard)
 st.markdown("**Trips per Hour by Day of Week**")
 if not filtered_hourly.empty:
     day_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     # Aggregate across dates: SUM trips per (hour, day) to match dashboard
-    hourly_agg = filtered_hourly.groupby(["hour_of_day", "day_name"], as_index=False)["num_trips"].sum()
+    hourly_agg = filtered_hourly.groupby(["hour_of_day", "day_name"], as_index=False)["trip_count"].sum()
     hourly_agg["day_name"] = pd.Categorical(
         hourly_agg["day_name"], categories=day_order, ordered=True
     )
     fig = px.line(
         hourly_agg.sort_values(["day_name", "hour_of_day"]),
-        x="hour_of_day", y="num_trips", color="day_name",
-        labels={"hour_of_day": "Hour of Day", "num_trips": "Number of Trips", "day_name": "Day of Week"},
+        x="hour_of_day", y="trip_count", color="day_name",
+        labels={"hour_of_day": "Hour of Day", "trip_count": "Number of Trips", "day_name": "Day of Week"},
         markers=True,
         category_orders={"day_name": day_order}
     )
@@ -306,8 +319,8 @@ day_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
 with heat_col1:
     st.markdown("**Average Trips per Hour by Day of Week**")
     if not filtered_hourly.empty:
-        avg_pivot = filtered_hourly.groupby(["day_name", "hour_of_day"], as_index=False)["num_trips"].mean()
-        avg_matrix = avg_pivot.pivot(index="day_name", columns="hour_of_day", values="num_trips")
+        avg_pivot = filtered_hourly.groupby(["day_name", "hour_of_day"], as_index=False)["trip_count"].mean()
+        avg_matrix = avg_pivot.pivot(index="day_name", columns="hour_of_day", values="trip_count")
         # Reorder days
         available_days = [d for d in day_order if d in avg_matrix.index]
         avg_matrix = avg_matrix.reindex(available_days)
@@ -328,8 +341,8 @@ with heat_col1:
 with heat_col2:
     st.markdown("**Trips per Month Hour by Day of Week**")
     if not filtered_hourly.empty:
-        sum_pivot = filtered_hourly.groupby(["day_name", "hour_of_day"], as_index=False)["num_trips"].sum()
-        sum_matrix = sum_pivot.pivot(index="day_name", columns="hour_of_day", values="num_trips")
+        sum_pivot = filtered_hourly.groupby(["day_name", "hour_of_day"], as_index=False)["trip_count"].sum()
+        sum_matrix = sum_pivot.pivot(index="day_name", columns="hour_of_day", values="trip_count")
         # Reorder days
         available_days = [d for d in day_order if d in sum_matrix.index]
         sum_matrix = sum_matrix.reindex(available_days)
@@ -343,6 +356,150 @@ with heat_col2:
         )
         fig.update_layout(title="", xaxis_title="Hour of Day", yaxis_title="Day of Week")
         st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.info("No data for selected filters.")
+
+# --- Weather Impact Section ---
+st.markdown("---")
+st.subheader("\U0001F326\uFE0F Weather Impact on Trips")
+
+# Merge KPIs with weather data from dim_date
+weather_kpi_df = kpis_df.merge(
+    dates_df[["full_date", "avg_temp_c", "total_precip_mm", "avg_wind_speed_kmph",
+              "avg_humidity", "weather_desc"]],
+    on="full_date", how="inner"
+).dropna(subset=["avg_temp_c"])
+
+# Apply date range filter
+if isinstance(date_range, tuple) and len(date_range) == 2:
+    weather_kpi_df = weather_kpi_df[
+        (weather_kpi_df["full_date"].dt.date >= date_range[0]) &
+        (weather_kpi_df["full_date"].dt.date <= date_range[1])
+    ]
+if selected_days:
+    weather_kpi_df = weather_kpi_df[weather_kpi_df["day_name"].isin(selected_days)]
+if selected_weather:
+    weather_kpi_df = weather_kpi_df[weather_kpi_df["weather_desc"].isin(selected_weather)]
+
+# Row 1: Avg Trips by Weather Condition (BAR) + Weather x Day Heatmap
+weather_row1_col1, weather_row1_col2 = st.columns(2)
+
+# Chart 1: Avg Daily Trips by Weather Condition — horizontal BAR (matches "Avg Wait Time by Day")
+with weather_row1_col1:
+    st.markdown("**Avg Daily Trips by Weather Condition**")
+    if not weather_kpi_df.empty:
+        weather_trips = weather_kpi_df.groupby("weather_desc", as_index=False).agg(
+            avg_trips=("total_trips", "mean"),
+            count_days=("total_trips", "count")
+        ).sort_values("avg_trips", ascending=True)
+        weather_trips = weather_trips[weather_trips["count_days"] >= 3]
+        if not weather_trips.empty:
+            fig = px.bar(
+                weather_trips, x="avg_trips", y="weather_desc", orientation="h",
+                color="weather_desc",
+                labels={"avg_trips": "Avg Trips per Day", "weather_desc": "Weather Condition"}
+            )
+            fig.update_layout(showlegend=False, yaxis={"categoryorder": "total ascending"})
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.info("Not enough data points per weather condition.")
+    else:
+        st.info("No data for selected filters.")
+
+# Chart 2: Trips by Day of Week & Weather Group — stacked BAR (matches "Revenue by Payment Type & Zone")
+with weather_row1_col2:
+    st.markdown("**Trips by Day of Week & Weather Group**")
+    if not weather_kpi_df.empty:
+        def weather_group_chart2(desc):
+            desc_lower = str(desc).lower()
+            if any(w in desc_lower for w in ["snow", "blizzard", "sleet", "ice"]):
+                return "Snow/Ice"
+            elif any(w in desc_lower for w in ["heavy rain", "moderate rain", "torrential"]):
+                return "Heavy Rain"
+            elif any(w in desc_lower for w in ["light rain", "drizzle", "patchy rain", "shower"]):
+                return "Light Rain"
+            elif any(w in desc_lower for w in ["fog", "mist", "overcast", "cloudy"]):
+                return "Overcast/Fog"
+            else:
+                return "Dry/Clear"
+
+        day_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        day_weather = weather_kpi_df.copy()
+        day_weather["weather_group"] = day_weather["weather_desc"].apply(weather_group_chart2)
+        day_weather_agg = day_weather.groupby(["day_name", "weather_group"], as_index=False)["total_trips"].sum()
+        day_weather_agg["day_name"] = pd.Categorical(day_weather_agg["day_name"], categories=day_order, ordered=True)
+        day_weather_agg = day_weather_agg.sort_values("day_name")
+
+        group_order = ["Dry/Clear", "Overcast/Fog", "Light Rain", "Heavy Rain", "Snow/Ice"]
+        fig = px.bar(
+            day_weather_agg, x="day_name", y="total_trips", color="weather_group",
+            barmode="stack",
+            category_orders={"weather_group": group_order},
+            labels={"day_name": "Day of Week", "total_trips": "Total Trips", "weather_group": "Weather Group"}
+        )
+        fig.update_layout(xaxis_title="Day of Week", yaxis_title="Total Trips")
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.info("No data for selected filters.")
+
+# Row 2: Avg Revenue by Weather Group (BAR) + Avg Trip Duration by Weather (BAR)
+weather_row2_col1, weather_row2_col2 = st.columns(2)
+
+# Chart 3: Avg Daily Revenue by Weather Group — BAR (matches "Avg Wait Time by Day")
+with weather_row2_col1:
+    st.markdown("**Avg Daily Revenue by Weather Group**")
+    if not weather_kpi_df.empty:
+        def weather_group(desc):
+            desc_lower = str(desc).lower()
+            if any(w in desc_lower for w in ["snow", "blizzard", "sleet", "ice"]):
+                return "Snow/Ice"
+            elif any(w in desc_lower for w in ["heavy rain", "moderate rain", "torrential"]):
+                return "Heavy Rain"
+            elif any(w in desc_lower for w in ["light rain", "drizzle", "patchy rain", "shower"]):
+                return "Light Rain"
+            elif any(w in desc_lower for w in ["fog", "mist", "overcast", "cloudy"]):
+                return "Overcast/Fog"
+            else:
+                return "Dry/Clear"
+
+        grouped_weather = weather_kpi_df.copy()
+        grouped_weather["weather_group"] = grouped_weather["weather_desc"].apply(weather_group)
+        group_rev = grouped_weather.groupby("weather_group", as_index=False)["total_revenue"].mean()
+        group_rev = group_rev.rename(columns={"total_revenue": "avg_daily_revenue"})
+
+        group_order = ["Dry/Clear", "Overcast/Fog", "Light Rain", "Heavy Rain", "Snow/Ice"]
+        group_rev["weather_group"] = pd.Categorical(group_rev["weather_group"], categories=group_order, ordered=True)
+        group_rev = group_rev.sort_values("weather_group")
+
+        fig = px.bar(
+            group_rev, x="weather_group", y="avg_daily_revenue",
+            color="weather_group",
+            labels={"weather_group": "Weather Group", "avg_daily_revenue": "Avg Daily Revenue (\u00a3)"},
+        )
+        fig.update_layout(showlegend=False, xaxis_title="Weather Group", yaxis_title="Avg Daily Revenue (\u00a3)")
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.info("No data for selected filters.")
+
+# Chart 4: Avg Trip Duration by Weather Condition — BAR (matches "Avg Wait Time by Day")
+with weather_row2_col2:
+    st.markdown("**Avg Trip Duration by Weather Condition**")
+    if not weather_kpi_df.empty:
+        weather_duration = weather_kpi_df.groupby("weather_desc", as_index=False).agg(
+            avg_duration=("avg_trip_duration_min", "mean"),
+            count_days=("avg_trip_duration_min", "count")
+        ).sort_values("avg_duration", ascending=True)
+        weather_duration = weather_duration[weather_duration["count_days"] >= 3]
+        if not weather_duration.empty:
+            fig = px.bar(
+                weather_duration, x="avg_duration", y="weather_desc", orientation="h",
+                color="weather_desc",
+                labels={"avg_duration": "Avg Duration (min)", "weather_desc": "Weather Condition"}
+            )
+            fig.update_layout(showlegend=False, yaxis={"categoryorder": "total ascending"})
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.info("Not enough data points per weather condition.")
     else:
         st.info("No data for selected filters.")
 
