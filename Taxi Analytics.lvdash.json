@@ -218,6 +218,125 @@
           }
         ]
       }
+    },
+    {
+      "name": "weather_daily",
+      "displayName": "Weather Daily",
+      "config": {
+        "version": "1.1",
+        "source": "students_data.team1_taxi.weather_daily",
+        "dimensions": [
+          {
+            "name": "date",
+            "expr": "date"
+          },
+          {
+            "name": "weather_desc",
+            "expr": "weather_desc"
+          }
+        ],
+        "measures": [
+          {
+            "name": "avg_temperature",
+            "expr": "AVG(avg_temp_c)",
+            "displayName": "Avg Temperature (°C)"
+          },
+          {
+            "name": "avg_precipitation",
+            "expr": "AVG(total_precip_mm)",
+            "displayName": "Avg Precipitation (mm)"
+          },
+          {
+            "name": "total_precipitation",
+            "expr": "SUM(total_precip_mm)",
+            "displayName": "Total Precipitation (mm)"
+          },
+          {
+            "name": "avg_wind_speed",
+            "expr": "AVG(avg_wind_speed_kmph)",
+            "displayName": "Avg Wind Speed (km/h)"
+          },
+          {
+            "name": "avg_humidity",
+            "expr": "AVG(avg_humidity)",
+            "displayName": "Avg Humidity (%)"
+          },
+          {
+            "name": "avg_visibility",
+            "expr": "AVG(avg_visibility_km)",
+            "displayName": "Avg Visibility (km)"
+          },
+          {
+            "name": "day_count",
+            "expr": "COUNT(*)",
+            "displayName": "Days"
+          }
+        ]
+      }
+    },
+    {
+      "name": "weather_taxi_correlation",
+      "displayName": "Weather-Taxi Correlation",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT\n  w.date,\n  w.weather_desc,\n  w.avg_temp_c,\n  w.total_precip_mm,\n  w.avg_wind_speed_kmph,\n  w.avg_humidity,\n  t.booking_id,\n  t.price,\n  t.distance,\n  t.trip_status\nFROM students_data.team1_taxi.weather_daily w JOIN students_data.team1_taxi.silver_taxi t\n  ON DATE(t.pickup_due_ts) = w.date\n",
+        "dimensions": [
+          {
+            "name": "date",
+            "expr": "date"
+          },
+          {
+            "name": "weather_desc",
+            "expr": "weather_desc"
+          },
+          {
+            "name": "trip_status",
+            "expr": "trip_status"
+          }
+        ],
+        "measures": [
+          {
+            "name": "trip_count",
+            "expr": "COUNT(booking_id)",
+            "displayName": "Total Trips"
+          },
+          {
+            "name": "avg_trips_per_day",
+            "expr": "COUNT(booking_id) / COUNT(DISTINCT date)",
+            "displayName": "Avg Trips Per Day"
+          },
+          {
+            "name": "avg_price",
+            "expr": "AVG(price)",
+            "displayName": "Avg Trip Price (£)"
+          },
+          {
+            "name": "avg_distance",
+            "expr": "AVG(distance)",
+            "displayName": "Avg Distance"
+          },
+          {
+            "name": "total_revenue",
+            "expr": "SUM(price)",
+            "displayName": "Total Revenue (£)"
+          },
+          {
+            "name": "avg_temp",
+            "expr": "AVG(avg_temp_c)",
+            "displayName": "Avg Temperature (°C)"
+          },
+          {
+            "name": "avg_precip",
+            "expr": "AVG(total_precip_mm)",
+            "displayName": "Avg Precipitation (mm)"
+          },
+          {
+            "name": "avg_wind",
+            "expr": "AVG(avg_wind_speed_kmph)",
+            "displayName": "Avg Wind Speed (km/h)"
+          }
+        ]
+      }
     }
   ],
   "pages": [
@@ -1278,6 +1397,591 @@
             "y": 43,
             "width": 12,
             "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "weather",
+      "displayName": "Weather",
+      "layout": [
+        {
+          "widget": {
+            "name": "header",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# 🌤️ Weather Conditions\n",
+                "\n",
+                "**Daily weather data** — Explore temperature, precipitation, wind speed, and conditions over the past year"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_date",
+            "queries": [
+              {
+                "name": "dashboards/01f19c72b48e1736859b5f5b9642fb3b/datasets/01f19d3a4edb10079e4800f4300004e2_date",
+                "query": {
+                  "datasetName": "weather_daily",
+                  "fields": [
+                    {
+                      "name": "date",
+                      "expression": "`date`"
+                    },
+                    {
+                      "name": "date_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Date Range",
+                "showTitle": true
+              },
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "date",
+                    "queryName": "dashboards/01f19c72b48e1736859b5f5b9642fb3b/datasets/01f19d3a4edb10079e4800f4300004e2_date"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "filter_weather",
+            "queries": [
+              {
+                "name": "dashboards/01f19c72b48e1736859b5f5b9642fb3b/datasets/01f19d3a4edb10079e4800f4300004e2_weather_desc",
+                "query": {
+                  "datasetName": "weather_daily",
+                  "fields": [
+                    {
+                      "name": "weather_desc",
+                      "expression": "`weather_desc`"
+                    },
+                    {
+                      "name": "weather_desc_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Weather Condition",
+                "showTitle": true
+              },
+              "widgetType": "filter-multi-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "weather_desc",
+                    "queryName": "dashboards/01f19c72b48e1736859b5f5b9642fb3b/datasets/01f19d3a4edb10079e4800f4300004e2_weather_desc"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "temp_line",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "weather_daily",
+                  "fields": [
+                    {
+                      "name": "daily(date)",
+                      "expression": "DATE_TRUNC(\"DAY\", `date`)"
+                    },
+                    {
+                      "name": "measure(avg_temperature)",
+                      "expression": "MEASURE(`avg_temperature`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Temperature Trend",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily(date)",
+                  "displayName": "Day",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(avg_temperature)",
+                  "displayName": "avg_temperature",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 12,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "precip_bar",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "weather_daily",
+                  "fields": [
+                    {
+                      "name": "weather_desc",
+                      "expression": "`weather_desc`"
+                    },
+                    {
+                      "name": "measure(avg_precipitation)",
+                      "expression": "MEASURE(`avg_precipitation`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Avg Precipitation by Condition",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "weather_desc",
+                  "displayName": "weather_desc",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(avg_precipitation)",
+                  "displayName": "avg_precipitation",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "weather_desc",
+                  "displayName": "weather_desc",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "wind_bar",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "weather_daily",
+                  "fields": [
+                    {
+                      "name": "weather_desc",
+                      "expression": "`weather_desc`"
+                    },
+                    {
+                      "name": "measure(avg_wind_speed)",
+                      "expression": "MEASURE(`avg_wind_speed`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Avg Wind Speed by Condition",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "weather_desc",
+                  "displayName": "weather_desc",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(avg_wind_speed)",
+                  "displayName": "avg_wind_speed",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "weather_desc",
+                  "displayName": "weather_desc",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 9,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "precip_line",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "weather_daily",
+                  "fields": [
+                    {
+                      "name": "weekly(date)",
+                      "expression": "DATE_TRUNC(\"WEEK\", `date`)"
+                    },
+                    {
+                      "name": "measure(total_precipitation)",
+                      "expression": "MEASURE(`total_precipitation`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Precipitation Over Time",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "weekly(date)",
+                  "displayName": "Week",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(total_precipitation)",
+                  "displayName": "total_precipitation",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 15,
+            "width": 12,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "table_summary",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "weather_daily",
+                  "fields": [
+                    {
+                      "name": "weather_desc",
+                      "expression": "`weather_desc`"
+                    },
+                    {
+                      "name": "measure(day_count)",
+                      "expression": "MEASURE(`day_count`)"
+                    },
+                    {
+                      "name": "measure(avg_temperature)",
+                      "expression": "MEASURE(`avg_temperature`)"
+                    },
+                    {
+                      "name": "measure(avg_precipitation)",
+                      "expression": "MEASURE(`avg_precipitation`)"
+                    },
+                    {
+                      "name": "measure(avg_wind_speed)",
+                      "expression": "MEASURE(`avg_wind_speed`)"
+                    },
+                    {
+                      "name": "measure(avg_humidity)",
+                      "expression": "MEASURE(`avg_humidity`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Weather Summary by Condition",
+                "showTitle": true
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "weather_desc"
+                  },
+                  {
+                    "fieldName": "measure(day_count)"
+                  },
+                  {
+                    "fieldName": "measure(avg_temperature)"
+                  },
+                  {
+                    "fieldName": "measure(avg_precipitation)"
+                  },
+                  {
+                    "fieldName": "measure(avg_wind_speed)"
+                  },
+                  {
+                    "fieldName": "measure(avg_humidity)"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 20,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "corr_header",
+            "multilineTextboxSpec": {
+              "lines": [
+                "## 🚕 Weather & Taxi Usage Correlation\n",
+                "\n",
+                "How weather conditions impact taxi demand, pricing, and trip patterns"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 26,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "trips_by_weather",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "weather_taxi_correlation",
+                  "fields": [
+                    {
+                      "name": "weather_desc",
+                      "expression": "`weather_desc`"
+                    },
+                    {
+                      "name": "measure(avg_trips_per_day)",
+                      "expression": "MEASURE(`avg_trips_per_day`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Avg Trips Per Day by Weather Condition",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "weather_desc",
+                  "displayName": "Weather Condition",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(avg_trips_per_day)",
+                  "displayName": "Avg Trips Per Day",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "weather_desc",
+                  "displayName": "Weather Condition",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 28,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "price_by_weather",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "weather_taxi_correlation",
+                  "fields": [
+                    {
+                      "name": "weather_desc",
+                      "expression": "`weather_desc`"
+                    },
+                    {
+                      "name": "measure(avg_price)",
+                      "expression": "MEASURE(`avg_price`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Avg Trip Price by Weather",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "weather_desc",
+                  "displayName": "weather_desc",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(avg_price)",
+                  "displayName": "avg_price",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "weather_desc",
+                  "displayName": "weather_desc",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 28,
+            "width": 6,
+            "height": 6
           }
         }
       ],
